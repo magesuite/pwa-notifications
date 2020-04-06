@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="MageSuite\PwaNotifications\Api\DeviceInformationManagementInterface"
+                type="MageSuite\PwaNotifications\Model\DeviceInformationManagement" />
+
+    <preference for="MageSuite\PwaNotifications\Api\Data\EncryptionKeysInterface"
+                type="MageSuite\PwaNotifications\Model\Data\EncryptionKeys" />
+</config>

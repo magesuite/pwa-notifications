@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="pwa_device" resource="default" engine="innodb" comment="Device configuration">
+        <column xsi:type="int" name="device_id" unsigned="true" nullable="false" identity="true"
+                comment="Device ID"/>
+        <column xsi:type="text" name="p256dh" nullable="true" comment="Public key"/>
+        <column xsi:type="text" name="auth" nullable="true" comment="Authentication secret"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="device_id"/>
+        </constraint>
+    </table>
+    <table name="pwa_order_device" resource="default" engine="innodb" comment="Order to device linking table">
+        <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Order ID"/>
+        <column xsi:type="int" name="device_id" unsigned="true" nullable="false" identity="false"
+                comment="Device ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="order_id"/>
+            <column name="device_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="PWA_ORDER_DEVICE_ORDER_ID_TO_SALES_ORDER_ENTITY_ID"
+                    table="pwa_order_device"
+                    column="order_id"
+                    referenceTable="sales_order"
+                    referenceColumn="entity_id"
+                    onDelete="CASCADE"
+        />
+        <constraint xsi:type="foreign" referenceId="PWA_ORDER_DEVICE_DEVICE_ID_TO_PWA_DEVICE_DEVICE_ID"
+                    table="pwa_order_device"
+                    column="device_id"
+                    referenceTable="pwa_device"
+                    referenceColumn="device_id"
+                    onDelete="CASCADE"
+        />
+    </table>
+    <table name="pwa_email_device">
+        <column xsi:type="varchar" name="email" nullable="false" length="128" comment="Customer email"/>
+        <column xsi:type="int" name="device_id" unsigned="true" nullable="false" identity="false"
+                comment="Device ID" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="email"/>
+            <column name="device_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="PWA_EMAIL_DEVICE_DEVICE_ID_TO_PWA_DEVICE_DEVICE_ID"
+                    table="pwa_order_device"
+                    column="device_id"
+                    referenceTable="pwa_device"
+                    referenceColumn="device_id"
+                    onDelete="CASCADE"
+        />
+    </table>
+</schema>
