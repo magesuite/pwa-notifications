@@ -2,7 +2,7 @@ stages:
     - codesniffer
 
 default:
-    image: php:7.2
+    image: composer:latest
 
 phpcs:
     stage: codesniffer
@@ -13,4 +13,4 @@ phpcs:
         - php -r "unlink('composer-setup.php');"
         - php composer.phar require squizlabs/php_codesniffer
     script:
-        - vendor/bin/phpcs --standard=PSR12
+        - vendor/bin/phpcs --standard=PSR12 ./
