@@ -9,4 +9,4 @@ phpcs:
     script:
         - mkdir phpcs
         - cd phpcs && composer require squizlabs/php_codesniffer
-        - phpcs/vendor/bin/phpcs --standard=PSR12 --ignore=phpcs/ ./
+        - cd ../ && phpcs/vendor/bin/phpcs --standard=PSR12 --ignore=phpcs/ ./
