@@ -7,7 +7,7 @@ default:
 phpcs:
     stage: codesniffer
     before_script:
-        - rm composer.json
-        - composer require squizlabs/php_codesniffer
+        - mkdir phpcs
+        - cd phpcs && composer require squizlabs/php_codesniffer
     script:
-        - vendor/bin/phpcs --standard=PSR12 --ignore=registration.php ./
+        - phpcs/vendor/bin/phpcs --standard=PSR12 --ignore=phpcs/ ./
