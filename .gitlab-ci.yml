@@ -13,4 +13,4 @@ phpcs:
         - php -r "unlink('composer-setup.php');"
         - php composer.phar require squizlabs/php_codesniffer
     script:
-        - vendor/bin/phpcs --standard=PSR12 ./
+        - vendor/bin/phpcs --standard=PSR12 --ignore=registration.php ./
