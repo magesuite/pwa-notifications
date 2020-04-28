@@ -1,8 +1,12 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
-
     <event name="pwa_device_saved">
         <observer instance="MageSuite\PwaNotifications\Observer\LinkLastOrderWithDevice"
                   name="link_last_order_with_device"/>
+    </event>
+
+    <event name="sales_order_shipment_save_after">
+        <observer name="pwa_notify_about_order_shipment"
+                  instance="\MageSuite\PwaNotifications\Observer\Order\Shipment\NotifyAboutOrderShipment" />
     </event>
 </config>

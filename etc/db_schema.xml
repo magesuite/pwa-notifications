@@ -4,6 +4,7 @@
     <table name="pwa_device" resource="default" engine="innodb" comment="Device configuration">
         <column xsi:type="int" name="device_id" unsigned="true" nullable="false" identity="true"
                 comment="Device ID"/>
+        <column xsi:type="text" name="endpoint" nullable="true" comment="Endpoint"/>
         <column xsi:type="text" name="p256dh" nullable="true" comment="Public key"/>
         <column xsi:type="text" name="auth" nullable="true" comment="Authentication secret"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">

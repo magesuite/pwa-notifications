@@ -6,4 +6,15 @@
 
     <preference for="MageSuite\PwaNotifications\Api\Data\EncryptionKeysInterface"
                 type="MageSuite\PwaNotifications\Model\Data\EncryptionKeys" />
+
+    <preference for="MageSuite\PwaNotifications\Api\Data\NotificationInterface"
+                type="MageSuite\PwaNotifications\Model\Data\Notification" />
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="pwa_send_notification" xsi:type="object">MageSuite\PwaNotifications\Console\Command\SendNotification</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

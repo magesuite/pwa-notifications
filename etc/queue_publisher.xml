@@ -1,0 +1,5 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/publisher.xsd">
+    <publisher topic="pwa.notification.send">
+        <connection name="db" exchange="pwa-notification-exchange" />
+    </publisher>
+</config>
