@@ -2,7 +2,11 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="before.body.end">
-            <block name="pwa.notifications.register" template="MageSuite_PwaNotifications::register.phtml" after="pwa.service-worker.register" ifconfig="pwa/general/is_enabled"/>
+            <block name="pwa.notifications.register" template="MageSuite_PwaNotifications::register.phtml" after="pwa.service-worker.register" ifconfig="pwa/general/is_enabled">
+                <arguments>
+                    <argument name="configurationHelper" xsi:type="object">MageSuite\PwaNotifications\Helper\Configuration</argument>
+                </arguments>
+            </block>
         </referenceContainer>
     </body>
 </page>

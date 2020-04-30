@@ -2,7 +2,7 @@
 
 namespace MageSuite\PwaNotifications\Model;
 
-class Device extends \Magento\Framework\Model\AbstractModel implements \MageSuite\PwaNotifications\Api\Data\DeviceInterface
+class Device extends \Magento\Framework\Model\AbstractModel
 {
     protected function _construct()
     {

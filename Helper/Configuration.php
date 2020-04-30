@@ -2,7 +2,7 @@
 
 namespace MageSuite\PwaNotifications\Helper;
 
-class Configuration extends \Magento\Framework\App\Helper\AbstractHelper
+class Configuration extends \Magento\Framework\App\Helper\AbstractHelper implements \Magento\Framework\View\Element\Block\ArgumentInterface
 {
     const XML_PATH_SERVER_PUBLIC_KEY = 'pwa/notifications/server_public_key';
     const XML_PATH_SERVER_PRIVATE_KEY = 'pwa/notifications/server_private_key';

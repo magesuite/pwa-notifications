@@ -1,6 +1,6 @@
 <?php
 // below code is only for BE testing purposes, will be refactored/changed by frontend developers
-$helper = $this->helper(\MageSuite\PwaNotifications\Helper\Configuration::class);
+$helper = $block->getConfigurationHelper();
 ?>
 <script type="text/javascript">
     function urlBase64ToUint8Array(base64String) {
