@@ -4,6 +4,7 @@ namespace MageSuite\PwaNotifications\Model\ResourceModel\Device;
 
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
+    // phpcs:ignore
     protected $_idFieldName = 'device_id';
 
     protected function _construct()

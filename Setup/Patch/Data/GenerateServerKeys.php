@@ -2,7 +2,8 @@
 
 namespace MageSuite\PwaNotifications\Setup\Patch\Data;
 
-class GenerateServerKeys implements \Magento\Framework\Setup\Patch\DataPatchInterface {
+class GenerateServerKeys implements \Magento\Framework\Setup\Patch\DataPatchInterface
+{
     /**
      * @var \Magento\Framework\App\Config\Storage\WriterInterface
      */
@@ -16,8 +17,7 @@ class GenerateServerKeys implements \Magento\Framework\Setup\Patch\DataPatchInte
     public function __construct(
         \Magento\Framework\App\Config\Storage\WriterInterface $configWriter,
         \Magento\Framework\Encryption\EncryptorInterface $encryptor
-    )
-    {
+    ) {
         $this->configWriter = $configWriter;
         $this->encryptor = $encryptor;
     }
@@ -52,4 +52,3 @@ class GenerateServerKeys implements \Magento\Framework\Setup\Patch\DataPatchInte
         return [];
     }
 }
-

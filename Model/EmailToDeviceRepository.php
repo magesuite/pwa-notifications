@@ -14,7 +14,8 @@ class EmailToDeviceRepository
         $this->connection = $resourceConnection->getConnection();
     }
 
-    public function save($email, $deviceId) {
+    public function save($email, $deviceId)
+    {
         $table = $this->connection->getTableName('pwa_email_device');
 
         return $this->connection->insertOnDuplicate($table, [
@@ -27,7 +28,8 @@ class EmailToDeviceRepository
      * @param $deviceId
      * @return string[]
      */
-    public function getEmailsByDeviceId($deviceId) {
+    public function getEmailsByDeviceId($deviceId)
+    {
         $table = $this->connection->getTableName('pwa_email_device');
 
         $select = $this->connection->select();
@@ -41,7 +43,8 @@ class EmailToDeviceRepository
      * @param $orderId
      * @return int[]
      */
-    public function getDevicesByEmail($email) {
+    public function getDevicesByEmail($email)
+    {
         $table = $this->connection->getTableName('pwa_email_device');
 
         $select = $this->connection->select();

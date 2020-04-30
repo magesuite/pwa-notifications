@@ -17,8 +17,7 @@ class LinkLastOrderWhenDeviceIsCreated implements \Magento\Framework\Event\Obser
     public function __construct(
         \Magento\Checkout\Model\Session $checkoutSession,
         \MageSuite\PwaNotifications\Model\Order\LinkOrderWithDevice $linkOrderWithDevice
-    )
-    {
+    ) {
         $this->checkoutSession = $checkoutSession;
         $this->linkOrderWithDevice = $linkOrderWithDevice;
     }
@@ -33,13 +32,13 @@ class LinkLastOrderWhenDeviceIsCreated implements \Magento\Framework\Event\Obser
 
         $order = $this->checkoutSession->getLastRealOrder();
 
-        if($order == null) {
+        if ($order == null) {
             return;
         }
 
         $orderId = $order->getId();
 
-        if(!is_numeric($orderId)) {
+        if (!is_numeric($orderId)) {
             return;
         }
 

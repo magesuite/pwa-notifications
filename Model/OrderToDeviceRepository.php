@@ -14,7 +14,8 @@ class OrderToDeviceRepository
         $this->connection = $resourceConnection->getConnection();
     }
 
-    public function save($orderId, $deviceId) {
+    public function save($orderId, $deviceId)
+    {
         $table = $this->connection->getTableName('pwa_order_device');
 
         return $this->connection->insertOnDuplicate($table, [
@@ -27,7 +28,8 @@ class OrderToDeviceRepository
      * @param $deviceId
      * @return int[]
      */
-    public function getOrdersByDeviceId($deviceId) {
+    public function getOrdersByDeviceId($deviceId)
+    {
         $table = $this->connection->getTableName('pwa_order_device');
 
         $select = $this->connection->select();
@@ -41,7 +43,8 @@ class OrderToDeviceRepository
      * @param $orderId
      * @return int[]
      */
-    public function getDevicesByOrderId($orderId) {
+    public function getDevicesByOrderId($orderId)
+    {
         $table = $this->connection->getTableName('pwa_order_device');
 
         $select = $this->connection->select();

@@ -28,8 +28,7 @@ class SendNotification extends \Symfony\Component\Console\Command\Command
     protected function execute(
         \Symfony\Component\Console\Input\InputInterface $input,
         \Symfony\Component\Console\Output\OutputInterface $output
-    )
-    {
+    ) {
         $deviceId = $input->getArgument('deviceId');
         $message = $input->getArgument('message');
 
@@ -38,4 +37,3 @@ class SendNotification extends \Symfony\Component\Console\Command\Command
         $output->writeln('Message was published to queue');
     }
 }
-

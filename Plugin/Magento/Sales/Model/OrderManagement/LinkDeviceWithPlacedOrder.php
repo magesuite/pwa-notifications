@@ -17,17 +17,16 @@ class LinkDeviceWithPlacedOrder
     public function __construct(
         \MageSuite\PwaNotifications\Helper\Session $session,
         \MageSuite\PwaNotifications\Model\Order\LinkOrderWithDevice $linkOrderWithDevice
-    )
-    {
+    ) {
         $this->session = $session;
         $this->linkOrderWithDevice = $linkOrderWithDevice;
     }
 
     public function afterPlace(
-        $subject,
+        \Magento\Sales\Model\Service\OrderService $subject,
         $result
     ) {
-        if($this->session->getDeviceId() == null) {
+        if ($this->session->getDeviceId() == null) {
             return $result;
         }
 

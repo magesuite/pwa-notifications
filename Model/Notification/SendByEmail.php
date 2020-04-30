@@ -17,8 +17,7 @@ class SendByEmail
     public function __construct(
         PublishToQueue $publishToQueue,
         \MageSuite\PwaNotifications\Model\EmailToDeviceRepository $emailToDeviceRepository
-    )
-    {
+    ) {
         $this->publishToQueue = $publishToQueue;
         $this->emailToDeviceRepository = $emailToDeviceRepository;
     }
@@ -27,14 +26,15 @@ class SendByEmail
      * @param string $email
      * @param $message
      */
-    public function execute($email, $message) {
+    public function execute($email, $message)
+    {
         $deviceIds = $this->emailToDeviceRepository->getDevicesByEmail($email);
 
-        if(empty($deviceIds)) {
+        if (empty($deviceIds)) {
             return;
         }
 
-        foreach($deviceIds as $deviceId) {
+        foreach ($deviceIds as $deviceId) {
             $this->publishToQueue->execute($deviceId, $message);
         }
     }

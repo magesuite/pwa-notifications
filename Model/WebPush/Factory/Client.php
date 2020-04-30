@@ -18,7 +18,8 @@ class Client
      * @return \Minishlink\WebPush\WebPush
      * @throws \ErrorException
      */
-    public function create() {
+    public function create()
+    {
         $auth = [
             'VAPID' => [
                 'subject' => 'https://magesuite.me',

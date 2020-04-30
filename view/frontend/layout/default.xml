@@ -4,7 +4,7 @@
         <referenceContainer name="before.body.end">
             <block name="pwa.notifications.register" template="MageSuite_PwaNotifications::register.phtml" after="pwa.service-worker.register" ifconfig="pwa/general/is_enabled">
                 <arguments>
-                    <argument name="configurationHelper" xsi:type="object">MageSuite\PwaNotifications\Helper\Configuration</argument>
+                    <argument name="configuration_helper" xsi:type="object">MageSuite\PwaNotifications\Helper\Configuration</argument>
                 </arguments>
             </block>
         </referenceContainer>

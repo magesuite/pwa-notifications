@@ -24,7 +24,8 @@ class ConsumerTest extends AbstractNotificationTest
      */
     protected $logger;
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         $subscriptionFactory = $this->getMockBuilder(\MageSuite\PwaNotifications\Model\WebPush\Factory\Subscription::class)
@@ -58,7 +59,8 @@ class ConsumerTest extends AbstractNotificationTest
         ]);
     }
 
-    public function testItSendsMessage() {
+    public function testItSendsMessage()
+    {
         $messageSentReport = $this->getMockBuilder(\Minishlink\WebPush\MessageSentReport::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -74,7 +76,8 @@ class ConsumerTest extends AbstractNotificationTest
         $this->consumer->process($notification);
     }
 
-    public function testItDoesNotSendMessageWhenDeviceDoesNotExist() {
+    public function testItDoesNotSendMessageWhenDeviceDoesNotExist()
+    {
         $notification = new \MageSuite\PwaNotifications\Model\Data\Notification();
         $notification->setDeviceId(1000000000000);
         $notification->setMessage('pwa message');
@@ -86,7 +89,8 @@ class ConsumerTest extends AbstractNotificationTest
         $this->consumer->process($notification);
     }
 
-    public function testItLogsErrorWhenItWasNotPossibleToSendMessage() {
+    public function testItLogsErrorWhenItWasNotPossibleToSendMessage()
+    {
         $messageSentReport = $this->getMockBuilder(\Minishlink\WebPush\MessageSentReport::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -105,8 +109,9 @@ class ConsumerTest extends AbstractNotificationTest
         $this->consumer->process($notification);
     }
 
-    protected function createGenerator($returnedValues) {
-        foreach($returnedValues as $returnValue) {
+    protected function createGenerator($returnedValues)
+    {
+        foreach ($returnedValues as $returnValue) {
             yield $returnValue;
         }
     }

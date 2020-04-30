@@ -29,8 +29,7 @@ class Consumer
         \MageSuite\PwaNotifications\Model\WebPush\Factory\Subscription $subscriptionFactory,
         \MageSuite\PwaNotifications\Model\WebPush\Factory\Client $clientFactory,
         \Psr\Log\LoggerInterface $logger
-    )
-    {
+    ) {
         $this->deviceFactory = $deviceFactory;
         $this->subscriptionFactory = $subscriptionFactory;
         $this->clientFactory = $clientFactory;

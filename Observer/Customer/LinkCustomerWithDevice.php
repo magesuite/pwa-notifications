@@ -23,8 +23,7 @@ class LinkCustomerWithDevice implements \Magento\Framework\Event\ObserverInterfa
         \MageSuite\PwaNotifications\Helper\Session $session,
         \MageSuite\PwaNotifications\Model\CustomerToDeviceRepository $customerToDeviceRepository,
         \MageSuite\PwaNotifications\Model\EmailToDeviceRepository $emailToDeviceRepository
-    )
-    {
+    ) {
         $this->session = $session;
         $this->customerToDeviceRepository = $customerToDeviceRepository;
         $this->emailToDeviceRepository = $emailToDeviceRepository;
@@ -35,14 +34,14 @@ class LinkCustomerWithDevice implements \Magento\Framework\Event\ObserverInterfa
      */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
-        if(!$this->session->getDeviceId()) {
+        if (!$this->session->getDeviceId()) {
             return;
         }
 
         /** @var \Magento\Customer\Model\Customer $customer */
         $customer = $observer->getEvent()->getCustomer();
 
-        if($customer == null) {
+        if ($customer == null) {
             return;
         }
 

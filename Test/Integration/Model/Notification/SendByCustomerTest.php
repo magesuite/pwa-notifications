@@ -41,7 +41,8 @@ class SendByCustomerTest extends AbstractNotificationTest
      * @magentoDataFixture Magento/Customer/_files/customer.php
      * @magentoDbIsolation enabled
      */
-    public function testItPublishesMessagesToQueue() {
+    public function testItPublishesMessagesToQueue()
+    {
         $firstDeviceId = $this->deviceHelper->createDevice('firstEndpointTest');
         $secondDeviceId = $this->deviceHelper->createDevice('secondEndpointTest');
 

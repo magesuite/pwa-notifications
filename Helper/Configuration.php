@@ -16,8 +16,7 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper impleme
         \Magento\Framework\App\Helper\Context $context,
         \Magento\Framework\Encryption\EncryptorInterface $encryptor,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-    )
-    {
+    ) {
         parent::__construct($context);
 
         $this->encryptor = $encryptor;
@@ -34,7 +33,8 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper impleme
         return $this->getDecryptedValue(self::XML_PATH_SERVER_PRIVATE_KEY);
     }
 
-    protected function getDecryptedValue($xmlPath) {
+    protected function getDecryptedValue($xmlPath)
+    {
         return $this->encryptor->decrypt($this->scopeConfig->getValue($xmlPath));
     }
 }

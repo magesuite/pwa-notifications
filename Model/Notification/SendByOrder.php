@@ -29,8 +29,7 @@ class SendByOrder
         \MageSuite\PwaNotifications\Model\OrderToDeviceRepository $orderToDeviceRepository,
         \MageSuite\PwaNotifications\Model\EmailToDeviceRepository $emailToDeviceRepository,
         \MageSuite\PwaNotifications\Model\CustomerToDeviceRepository $customerToDeviceRepository
-    )
-    {
+    ) {
         $this->publishToQueue = $publishToQueue;
         $this->orderToDeviceRepository = $orderToDeviceRepository;
         $this->emailToDeviceRepository = $emailToDeviceRepository;
@@ -41,7 +40,8 @@ class SendByOrder
      * @param \Magento\Sales\Model\Order $order
      * @param $message
      */
-    public function execute($order, $message) {
+    public function execute($order, $message)
+    {
         $orderId = $order->getId();
         $email = $order->getCustomerEmail();
         $customerId = $order->getCustomerId();
@@ -49,17 +49,17 @@ class SendByOrder
         $deviceIds = $this->orderToDeviceRepository->getDevicesByOrderId($orderId);
         $deviceIds = array_merge($deviceIds, $this->emailToDeviceRepository->getDevicesByEmail($email));
 
-        if(is_numeric($customerId) && $customerId > 0) {
+        if (is_numeric($customerId) && $customerId > 0) {
             $deviceIds = array_merge($deviceIds, $this->customerToDeviceRepository->getDevicesByCustomerId($customerId));
         }
 
         $deviceIds = array_unique($deviceIds);
 
-        if(empty($deviceIds)) {
+        if (empty($deviceIds)) {
             return;
         }
 
-        foreach($deviceIds as $deviceId) {
+        foreach ($deviceIds as $deviceId) {
             $this->publishToQueue->execute($deviceId, $message);
         }
     }

@@ -23,8 +23,7 @@ class DeviceInformationManagement implements \MageSuite\PwaNotifications\Api\Dev
         \MageSuite\PwaNotifications\Model\DeviceFactory $deviceFactory,
         \Magento\Framework\Event\ManagerInterface $eventManagerInterface,
         \Magento\Framework\Session\SessionManagerInterface $sessionManager
-    )
-    {
+    ) {
         $this->deviceFactory = $deviceFactory;
         $this->eventManagerInterface = $eventManagerInterface;
         $this->sessionManager = $sessionManager;
@@ -38,7 +37,7 @@ class DeviceInformationManagement implements \MageSuite\PwaNotifications\Api\Dev
         $device = $this->deviceFactory->create();
         $device->load($identifier, 'identifier');
 
-        if(!$device->getId()) {
+        if (!$device->getId()) {
             $device->setEndpoint($endpoint);
             $device->setP256dh($keys->getP256dh());
             $device->setAuth($keys->getAuth());
@@ -54,7 +53,8 @@ class DeviceInformationManagement implements \MageSuite\PwaNotifications\Api\Dev
         return $device->getIdentifier();
     }
 
-    public function getDeviceByIdentifier($identifier) {
+    public function getDeviceByIdentifier($identifier)
+    {
         /** @var Device $device */
         $device = $this->deviceFactory->create();
         $device->load($identifier, 'identifier');

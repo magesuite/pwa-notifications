@@ -29,7 +29,8 @@ abstract class AbstractNotificationTest extends \PHPUnit\Framework\TestCase
         $this->messageCollectionFactory = $this->objectManager->create(\Magento\MysqlMq\Model\ResourceModel\MessageCollectionFactory::class);
     }
 
-    protected function getMessages() {
+    protected function getMessages()
+    {
         $messageCollection = $this->messageCollectionFactory->create();
         $messageCollection->addFieldToFilter('topic_name', 'pwa.notification.send');
 

@@ -21,14 +21,14 @@ class NotifyAboutOrderShipment implements \Magento\Framework\Event\ObserverInter
     {
         $shipment = $observer->getEvent()->getShipment();
 
-        if(!$shipment) {
+        if (!$shipment) {
             return;
         }
 
         /** @var \Magento\Sales\Model\Order $order */
         $order = $shipment->getOrder();
 
-        if(!$order) {
+        if (!$order) {
             return;
         }
 

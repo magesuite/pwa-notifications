@@ -12,8 +12,7 @@ class Session extends \Magento\Framework\App\Helper\AbstractHelper
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
         \Magento\Framework\Session\SessionManagerInterface $sessionManager
-    )
-    {
+    ) {
         parent::__construct($context);
 
         $this->sessionManager = $sessionManager;
@@ -24,7 +23,8 @@ class Session extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->sessionManager->getPwaDeviceId();
     }
 
-    public function setDeviceId($deviceId) {
+    public function setDeviceId($deviceId)
+    {
         $this->sessionManager->getPwaDeviceId($deviceId);
     }
 }

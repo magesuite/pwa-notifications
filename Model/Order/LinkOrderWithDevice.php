@@ -23,8 +23,7 @@ class LinkOrderWithDevice
         \MageSuite\PwaNotifications\Model\OrderToDeviceRepository $orderToDeviceRepository,
         \MageSuite\PwaNotifications\Model\EmailToDeviceRepository $emailToDeviceRepository,
         \MageSuite\PwaNotifications\Model\CustomerToDeviceRepository $customerToDeviceRepository
-    )
-    {
+    ) {
         $this->orderToDeviceRepository = $orderToDeviceRepository;
         $this->emailToDeviceRepository = $emailToDeviceRepository;
         $this->customerToDeviceRepository = $customerToDeviceRepository;
@@ -35,13 +34,13 @@ class LinkOrderWithDevice
      */
     public function execute($order, $deviceId)
     {
-        if($order == null) {
+        if ($order == null) {
             return;
         }
 
         $orderId = $order->getId();
 
-        if(!is_numeric($orderId)) {
+        if (!is_numeric($orderId)) {
             return;
         }
 
@@ -49,7 +48,7 @@ class LinkOrderWithDevice
 
         $email = $order->getCustomerEmail();
 
-        if(empty($email)) {
+        if (empty($email)) {
             return;
         }
 
@@ -57,7 +56,7 @@ class LinkOrderWithDevice
 
         $customerId = $order->getCustomerId();
 
-        if(!is_numeric($customerId) || $customerId <= 0) {
+        if (!is_numeric($customerId) || $customerId <= 0) {
             return;
         }
 

@@ -23,8 +23,7 @@ class SendByCustomer
         PublishToQueue $publishToQueue,
         \MageSuite\PwaNotifications\Model\EmailToDeviceRepository $emailToDeviceRepository,
         \MageSuite\PwaNotifications\Model\CustomerToDeviceRepository $customerToDeviceRepository
-    )
-    {
+    ) {
         $this->publishToQueue = $publishToQueue;
         $this->emailToDeviceRepository = $emailToDeviceRepository;
         $this->customerToDeviceRepository = $customerToDeviceRepository;
@@ -34,7 +33,8 @@ class SendByCustomer
      * @param \Magento\Customer\Model\Customer $customer
      * @param $message
      */
-    public function execute($customer, $message) {
+    public function execute($customer, $message)
+    {
         $customerId = $customer->getId();
 
         $deviceIds = $this->customerToDeviceRepository->getDevicesByCustomerId($customerId);
@@ -42,11 +42,11 @@ class SendByCustomer
 
         $deviceIds = array_unique($deviceIds);
 
-        if(empty($deviceIds)) {
+        if (empty($deviceIds)) {
             return;
         }
 
-        foreach($deviceIds as $deviceId) {
+        foreach ($deviceIds as $deviceId) {
             $this->publishToQueue->execute($deviceId, $message);
         }
     }

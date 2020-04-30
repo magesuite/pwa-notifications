@@ -12,7 +12,6 @@ class DeviceHelper
      */
     protected $deviceInformationManagement;
 
-
     public function __construct()
     {
         $this->objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();

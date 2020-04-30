@@ -38,7 +38,8 @@ class SendByOrderTest extends AbstractNotificationTest
      * @magentoDataFixture Magento/Sales/_files/guest_quote_with_addresses.php
      * @magentoDbIsolation enabled
      */
-    public function testItPublishesMessagesToQueue() {
+    public function testItPublishesMessagesToQueue()
+    {
         $order = $this->orderHelper->placeOrder('guest_quote');
 
         $firstDeviceId = $this->deviceHelper->createDevice('firstEndpointTest');
@@ -57,5 +58,4 @@ class SendByOrderTest extends AbstractNotificationTest
         $this->assertEquals('test message', $messages[0]->message);
         $this->assertEquals('test message', $messages[1]->message);
     }
-
 }

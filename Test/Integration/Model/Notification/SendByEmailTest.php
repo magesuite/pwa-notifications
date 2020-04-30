@@ -28,7 +28,8 @@ class SendByEmailTest extends AbstractNotificationTest
     /**
      * @magentoDbIsolation enabled
      */
-    public function testItPublishesMessagesToQueue() {
+    public function testItPublishesMessagesToQueue()
+    {
         $firstDeviceId = $this->deviceHelper->createDevice('firstEndpointTest');
 
         $this->emailToDeviceRepository->save('test@example.com', $firstDeviceId);
@@ -41,5 +42,4 @@ class SendByEmailTest extends AbstractNotificationTest
         $this->assertEquals($firstDeviceId, $messages[0]->device_id);
         $this->assertEquals('test message', $messages[0]->message);
     }
-
 }
