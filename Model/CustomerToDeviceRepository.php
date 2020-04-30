@@ -2,7 +2,7 @@
 
 namespace MageSuite\PwaNotifications\Model;
 
-class EmailToDeviceRepository
+class CustomerToDeviceRepository
 {
     /**
      * @var \Magento\Framework\DB\Adapter\AdapterInterface
@@ -14,24 +14,24 @@ class EmailToDeviceRepository
         $this->connection = $resourceConnection->getConnection();
     }
 
-    public function save($email, $deviceId) {
-        $table = $this->connection->getTableName('pwa_email_device');
+    public function save($customerId, $deviceId) {
+        $table = $this->connection->getTableName('pwa_customer_device');
 
         return $this->connection->insertOnDuplicate($table, [
-            'email' => $email,
+            'customer_id' => $customerId,
             'device_id' => $deviceId,
         ]);
     }
 
     /**
      * @param $deviceId
-     * @return string[]
+     * @return int[]
      */
-    public function getEmailsByDeviceId($deviceId) {
-        $table = $this->connection->getTableName('pwa_email_device');
+    public function getCustomersByDeviceId($deviceId) {
+        $table = $this->connection->getTableName('pwa_customer_device');
 
         $select = $this->connection->select();
-        $select->from($table, ['email']);
+        $select->from($table, ['customer_id']);
         $select->where('device_id = ?', $deviceId);
 
         return $this->connection->fetchCol($select);
@@ -41,12 +41,12 @@ class EmailToDeviceRepository
      * @param $orderId
      * @return int[]
      */
-    public function getDevicesByEmail($email) {
-        $table = $this->connection->getTableName('pwa_email_device');
+    public function getDevicesByCustomerId($customerId) {
+        $table = $this->connection->getTableName('pwa_customer_device');
 
         $select = $this->connection->select();
         $select->from($table, ['device_id']);
-        $select->where('email = ?', $email);
+        $select->where('customer_id = ?', $customerId);
 
         return $this->connection->fetchCol($select);
     }

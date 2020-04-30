@@ -2,7 +2,7 @@
 
 namespace MageSuite\PwaNotifications\Model\Notification;
 
-class SendByOrderId
+class SendByEmail
 {
     /**
      * @var PublishToQueue
@@ -10,21 +10,25 @@ class SendByOrderId
     protected $publishToQueue;
 
     /**
-     * @var \MageSuite\PwaNotifications\Model\OrderToDeviceRepository
+     * @var \MageSuite\PwaNotifications\Model\EmailToDeviceRepository
      */
-    protected $orderToDeviceRepository;
+    protected $emailToDeviceRepository;
 
     public function __construct(
         PublishToQueue $publishToQueue,
-        \MageSuite\PwaNotifications\Model\OrderToDeviceRepository $orderToDeviceRepository
+        \MageSuite\PwaNotifications\Model\EmailToDeviceRepository $emailToDeviceRepository
     )
     {
         $this->publishToQueue = $publishToQueue;
-        $this->orderToDeviceRepository = $orderToDeviceRepository;
+        $this->emailToDeviceRepository = $emailToDeviceRepository;
     }
 
-    public function execute($orderId, $message) {
-        $deviceIds = $this->orderToDeviceRepository->getDevicesByOrderId($orderId);
+    /**
+     * @param string $email
+     * @param $message
+     */
+    public function execute($email, $message) {
+        $deviceIds = $this->emailToDeviceRepository->getDevicesByEmail($email);
 
         if(empty($deviceIds)) {
             return;

@@ -1,0 +1,20 @@
+<?php
+// below code is only for BE testing purposes, will be refactored/changed by frontend developers
+/** @var \MageSuite\Pwa\Block\Data $block */
+/** @var \MageSuite\Pwa\Model\Data\ViewModel $viewModel */
+$viewModel = $block->getViewModel();
+$configuration = $viewModel->getConfiguration();
+?>
+<script>
+    self.addEventListener('push', function (event) {
+        const title = '<?=$configuration->getName()?>';
+
+        const options = {
+            body: event.data.text(),
+            icon: 'images/icon.png',
+            badge: 'images/badge.png'
+        };
+
+        event.waitUntil(self.registration.showNotification(title, options));
+    });
+</script>

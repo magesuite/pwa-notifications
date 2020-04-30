@@ -5,13 +5,13 @@ namespace MageSuite\PwaNotifications\Observer\Order\Shipment;
 class NotifyAboutOrderShipment implements \Magento\Framework\Event\ObserverInterface
 {
     /**
-     * @var \MageSuite\PwaNotifications\Model\Notification\SendByOrderId
+     * @var \MageSuite\PwaNotifications\Model\Notification\SendByOrder
      */
-    protected $sendByOrderId;
+    protected $sendByOrder;
 
-    public function __construct(\MageSuite\PwaNotifications\Model\Notification\SendByOrderId $sendByOrderId)
+    public function __construct(\MageSuite\PwaNotifications\Model\Notification\SendByOrder $sendByOrder)
     {
-        $this->sendByOrderId = $sendByOrderId;
+        $this->sendByOrder = $sendByOrder;
     }
 
     /**
@@ -25,14 +25,13 @@ class NotifyAboutOrderShipment implements \Magento\Framework\Event\ObserverInter
             return;
         }
 
+        /** @var \Magento\Sales\Model\Order $order */
         $order = $shipment->getOrder();
 
         if(!$order) {
             return;
         }
 
-        $orderId = $order->getId();
-
-        $this->sendByOrderId->execute($orderId, 'Your order was shipped');
+        $this->sendByOrder->execute($order, sprintf('Your order %s was shipped', $order->getIncrementId()));
     }
 }

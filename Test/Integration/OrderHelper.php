@@ -1,8 +1,8 @@
 <?php
 
-namespace MageSuite\PwaNotifications\Test\Integration\Observer;
+namespace MageSuite\PwaNotifications\Test\Integration;
 
-class LinkLastOrderWithDeviceIdTest extends \PHPUnit\Framework\TestCase
+class OrderHelper
 {
     /** @var \Magento\TestFramework\ObjectManager */
     protected $objectManager;
@@ -13,46 +13,15 @@ class LinkLastOrderWithDeviceIdTest extends \PHPUnit\Framework\TestCase
     protected $cartManagement;
 
     /**
-     * @var \MageSuite\PwaNotifications\Model\DeviceInformationManagement
-     */
-    protected $deviceInformationManagement;
-
-    /**
      * @var \Magento\Quote\Model\QuoteIdMaskFactory
      */
     protected $quoteIdMaskFactory;
 
-    /**
-     * @inheritdoc
-     */
-    protected function setUp()
+    public function __construct()
     {
         $this->objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
         $this->cartManagement = $this->objectManager->create(\Magento\Quote\Api\CartManagementInterface::class);
-        $this->deviceInformationManagement = $this->objectManager->create(\MageSuite\PwaNotifications\Model\DeviceInformationManagement::class);
         $this->quoteIdMaskFactory = $this->objectManager->get(\Magento\Quote\Model\QuoteIdMaskFactory::class);
-    }
-
-    /**
-     * @magentoDataFixture Magento/Sales/_files/guest_quote_with_addresses.php
-     */
-    public function testItLinksOrderDataWithDevice(): void
-    {
-        $order = $this->placeOrder('guest_quote');
-
-        $encryptionKeys = $this->objectManager->create(\MageSuite\PwaNotifications\Api\Data\EncryptionKeysInterface::class);
-        $encryptionKeys->setP256dh('p256dhTest');
-        $encryptionKeys->setAuth('authTest');
-
-        $deviceId = $this->deviceInformationManagement->save('endpointTest', $encryptionKeys);
-
-        $emails = $this->objectManager->get(\MageSuite\PwaNotifications\Model\EmailToDeviceRepository::class)
-            ->getEmailsByDeviceId($deviceId);
-        $orders = $this->objectManager->get(\MageSuite\PwaNotifications\Model\OrderToDeviceRepository::class)
-            ->getOrdersByDeviceId($deviceId);
-
-        $this->assertEquals(['some_email@mail.com'], $emails);
-        $this->assertEquals([$order->getId()], $orders);
     }
 
     public function placeOrder($quoteIdentifier)

@@ -17,4 +17,9 @@
             </argument>
         </arguments>
     </type>
+
+    <type name="Magento\Sales\Model\Service\OrderService">
+        <plugin name="link_order_with_device_after_placing_order"
+                type="MageSuite\PwaNotifications\Plugin\Magento\Sales\Model\OrderManagement\LinkDeviceWithPlacedOrder"/>
+    </type>
 </config>

@@ -2,55 +2,61 @@
 
 namespace MageSuite\PwaNotifications\Model\Notification;
 
-use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\EntityManager\EntityManager;
-use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\Exception\TemporaryStateExceptionInterface;
-use Magento\Framework\Bulk\OperationInterface;
-
 class Consumer
 {
-    const ERROR_MESSAGE = 'Sorry, something went wrong during PWA notifications sending process. Please see log for details.';
+    /**
+     * @var \MageSuite\PwaNotifications\Model\DeviceFactory
+     */
+    protected $deviceFactory;
+
+    /**
+     * @var \MageSuite\PwaNotifications\Model\WebPush\Factory\Subscription
+     */
+    protected $subscriptionFactory;
+
+    /**
+     * @var \MageSuite\PwaNotifications\Model\WebPush\Factory\Client
+     */
+    protected $clientFactory;
 
     /**
      * @var \Psr\Log\LoggerInterface
      */
     protected $logger;
 
-    /**
-     * @var \Magento\Framework\Serialize\SerializerInterface
-     */
-    protected $serializer;
-
-    /**
-     * @var \Magento\Framework\Bulk\OperationManagementInterface
-     */
-    protected $operationManagement;
-
-    /**
-     * @var EntityManager
-     */
-    protected $entityManager;
-
-    /**
-     * @param \Magento\Framework\Bulk\OperationManagementInterface $operationManagement
-     * @param \Psr\Log\LoggerInterface $logger
-     * @param \Magento\Framework\Serialize\SerializerInterface $serializer
-     * @param EntityManager $entityManager
-     */
     public function __construct(
-        \Magento\Framework\Bulk\OperationManagementInterface $operationManagement,
-        \Psr\Log\LoggerInterface $logger,
-        \Magento\Framework\Serialize\SerializerInterface $serializer,
-        EntityManager $entityManager
-    ) {
+        \MageSuite\PwaNotifications\Model\DeviceFactory $deviceFactory,
+        \MageSuite\PwaNotifications\Model\WebPush\Factory\Subscription $subscriptionFactory,
+        \MageSuite\PwaNotifications\Model\WebPush\Factory\Client $clientFactory,
+        \Psr\Log\LoggerInterface $logger
+    )
+    {
+        $this->deviceFactory = $deviceFactory;
+        $this->subscriptionFactory = $subscriptionFactory;
+        $this->clientFactory = $clientFactory;
         $this->logger = $logger;
-        $this->serializer = $serializer;
-        $this->operationManagement = $operationManagement;
-        $this->entityManager = $entityManager;
     }
 
-    public function process(\MageSuite\PwaNotifications\Api\Data\NotificatioInterface $notification) {
-        $this->logger->info('Notification sent '.$notification);
+    public function process(\MageSuite\PwaNotifications\Api\Data\NotificationInterface $notification)
+    {
+        $device = $this->deviceFactory->create();
+        $device->load($notification->getDeviceId());
+
+        if (!$device->getId()) {
+            $this->logger->error(sprintf('Device with id %s does not exist.', $notification->getDeviceId()));
+            return;
+        }
+
+        $webPush = $this->clientFactory->create();
+        $subscription = $this->subscriptionFactory->create($device);
+
+        $webPush->sendNotification($subscription, $notification->getMessage());
+
+        /** @var \Minishlink\WebPush\MessageSentReport $report */
+        foreach ($webPush->flush() as $report) {
+            if (!$report->isSuccess()) {
+                $this->logger->error('Failed to push PWA notification: ' . $report->getReason());
+            }
+        }
     }
 }

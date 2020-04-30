@@ -1,14 +1,9 @@
 <?php
 
-namespace MageSuite\PwaNotifications\Observer;
+namespace MageSuite\PwaNotifications\Model\Order;
 
-class LinkLastOrderWithDevice implements \Magento\Framework\Event\ObserverInterface
+class LinkOrderWithDevice
 {
-    /**
-     * @var \Magento\Checkout\Model\Session
-     */
-    protected $checkoutSession;
-
     /**
      * @var \MageSuite\PwaNotifications\Model\OrderToDeviceRepository
      */
@@ -19,28 +14,27 @@ class LinkLastOrderWithDevice implements \Magento\Framework\Event\ObserverInterf
      */
     protected $emailToDeviceRepository;
 
+    /**
+     * @var \MageSuite\PwaNotifications\Model\CustomerToDeviceRepository
+     */
+    protected $customerToDeviceRepository;
+
     public function __construct(
-        \Magento\Checkout\Model\Session $checkoutSession,
         \MageSuite\PwaNotifications\Model\OrderToDeviceRepository $orderToDeviceRepository,
-        \MageSuite\PwaNotifications\Model\EmailToDeviceRepository $emailToDeviceRepository
+        \MageSuite\PwaNotifications\Model\EmailToDeviceRepository $emailToDeviceRepository,
+        \MageSuite\PwaNotifications\Model\CustomerToDeviceRepository $customerToDeviceRepository
     )
     {
-        $this->checkoutSession = $checkoutSession;
         $this->orderToDeviceRepository = $orderToDeviceRepository;
         $this->emailToDeviceRepository = $emailToDeviceRepository;
+        $this->customerToDeviceRepository = $customerToDeviceRepository;
     }
 
     /**
      * @inheritDoc
      */
-    public function execute(\Magento\Framework\Event\Observer $observer)
+    public function execute($order, $deviceId)
     {
-        /** @var \MageSuite\PwaNotifications\Model\Device $device */
-        $device = $observer->getData('device');
-        $deviceId = $device->getId();
-
-        $order = $this->checkoutSession->getLastRealOrder();
-
         if($order == null) {
             return;
         }
@@ -60,5 +54,13 @@ class LinkLastOrderWithDevice implements \Magento\Framework\Event\ObserverInterf
         }
 
         $this->emailToDeviceRepository->save($email, $deviceId);
+
+        $customerId = $order->getCustomerId();
+
+        if(!is_numeric($customerId) || $customerId <= 0) {
+            return;
+        }
+
+        $this->customerToDeviceRepository->save($customerId, $deviceId);
     }
 }
