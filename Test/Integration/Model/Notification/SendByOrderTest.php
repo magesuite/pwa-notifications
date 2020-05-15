@@ -48,14 +48,17 @@ class SendByOrderTest extends AbstractNotificationTest
         $this->emailToDeviceRepository->save('customer@example.com', $firstDeviceId);
         $this->orderToDeviceRepository->save($order->getId(), $secondDeviceId);
 
-        $this->sendByOrder->execute($order, 'test message');
+        $notification = $this->notificationFactory->create();
+        $notification->setBody('test message');
+
+        $this->sendByOrder->execute($order, $notification);
 
         $messages = $this->getMessages();
 
         $this->assertCount(2, $messages);
         $this->assertEquals($firstDeviceId, $messages[0]->device_id);
         $this->assertEquals($secondDeviceId, $messages[1]->device_id);
-        $this->assertEquals('test message', $messages[0]->message);
-        $this->assertEquals('test message', $messages[1]->message);
+        $this->assertEquals('test message', $messages[0]->body);
+        $this->assertEquals('test message', $messages[1]->body);
     }
 }

@@ -43,14 +43,29 @@ class EmailToDeviceRepository
      * @param $orderId
      * @return int[]
      */
-    public function getDevicesByEmail($email)
+    public function getDevicesByEmail($emails)
     {
         $table = $this->connection->getTableName('pwa_email_device');
 
         $select = $this->connection->select();
         $select->from($table, ['device_id']);
-        $select->where('email = ?', $email);
+        $select->where('email IN(?)', $emails);
 
         return $this->connection->fetchCol($select);
+    }
+
+    public function getRelatedDevices($deviceId)
+    {
+        $emails = $this->getEmailsByDeviceId($deviceId);
+
+        $relatedDevicesIds = [];
+
+        if (empty($emails)) {
+            return $relatedDevicesIds;
+        }
+
+        $relatedDevicesIds = $this->getDevicesByEmail($emails);
+
+        return $relatedDevicesIds;
     }
 }

@@ -9,9 +9,17 @@ class NotifyAboutOrderShipment implements \Magento\Framework\Event\ObserverInter
      */
     protected $sendByOrder;
 
-    public function __construct(\MageSuite\PwaNotifications\Model\Notification\SendByOrder $sendByOrder)
-    {
+    /**
+     * @var \MageSuite\PwaNotifications\Api\Data\NotificationInterfaceFactory
+     */
+    protected $notificationFactory;
+
+    public function __construct(
+        \MageSuite\PwaNotifications\Api\Data\NotificationInterfaceFactory $notificationFactory,
+        \MageSuite\PwaNotifications\Model\Notification\SendByOrder $sendByOrder
+    ) {
         $this->sendByOrder = $sendByOrder;
+        $this->notificationFactory = $notificationFactory;
     }
 
     /**
@@ -32,6 +40,10 @@ class NotifyAboutOrderShipment implements \Magento\Framework\Event\ObserverInter
             return;
         }
 
-        $this->sendByOrder->execute($order, sprintf('Your order %s was shipped', $order->getIncrementId()));
+        $notification = $this->notificationFactory->create();
+        $notification->setTitle('Order status');
+        $notification->setBody(sprintf('Your order %s was shipped', $order->getIncrementId()));
+
+        $this->sendByOrder->execute($order, $notification, ['order_status_notification']);
     }
 }

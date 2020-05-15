@@ -68,9 +68,9 @@ class ConsumerTest extends AbstractNotificationTest
         $deviceId = $this->deviceHelper->createDevice('endpointTest');
         $notification = new \MageSuite\PwaNotifications\Model\Data\Notification();
         $notification->setDeviceId($deviceId);
-        $notification->setMessage('pwa message');
+        $notification->setBody('pwa message');
 
-        $this->client->expects($this->once())->method('sendNotification')->with($this->subscription, 'pwa message');
+        $this->client->expects($this->once())->method('sendNotification')->with($this->subscription, $notification);
         $this->client->expects($this->once())->method('flush')->willReturn($this->createGenerator([$messageSentReport]));
 
         $this->consumer->process($notification);
@@ -80,7 +80,7 @@ class ConsumerTest extends AbstractNotificationTest
     {
         $notification = new \MageSuite\PwaNotifications\Model\Data\Notification();
         $notification->setDeviceId(1000000000000);
-        $notification->setMessage('pwa message');
+        $notification->setBody('pwa message');
 
         $this->logger->expects($this->once())->method('error')->with('Device with id 1000000000000 does not exist.');
         $this->client->expects($this->exactly(0))->method('sendNotification');
@@ -101,7 +101,7 @@ class ConsumerTest extends AbstractNotificationTest
         $deviceId = $this->deviceHelper->createDevice('endpointTest');
         $notification = new \MageSuite\PwaNotifications\Model\Data\Notification();
         $notification->setDeviceId($deviceId);
-        $notification->setMessage('pwa message');
+        $notification->setBody('pwa message');
 
         $this->client->method('flush')->willReturn($this->createGenerator([$messageSentReport]));
         $this->logger->expects($this->once())->method('error')->with('Failed to push PWA notification: error message');

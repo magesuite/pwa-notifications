@@ -34,12 +34,15 @@ class SendByEmailTest extends AbstractNotificationTest
 
         $this->emailToDeviceRepository->save('test@example.com', $firstDeviceId);
 
-        $this->sendByEmail->execute('test@example.com', 'test message');
+        $notification = $this->notificationFactory->create();
+        $notification->setBody('test message');
+
+        $this->sendByEmail->execute('test@example.com', $notification);
 
         $messages = $this->getMessages();
 
         $this->assertCount(1, $messages);
         $this->assertEquals($firstDeviceId, $messages[0]->device_id);
-        $this->assertEquals('test message', $messages[0]->message);
+        $this->assertEquals('test message', $messages[0]->body);
     }
 }

@@ -18,11 +18,66 @@ interface NotificationInterface
     /**
      * @return string
      */
-    public function getMessage();
+    public function getTitle();
 
     /**
-     * @param string $message
+     * @param string $title
      * @return self
      */
-    public function setMessage($message);
+    public function setTitle($title);
+
+    /**
+     * @return string
+     */
+    public function getBody();
+
+    /**
+     * @param string $body
+     * @return self
+     */
+    public function setBody($body);
+
+    /**
+     * @return string
+     */
+    public function getIcon();
+
+    /**
+     * @param string $icon
+     * @return self
+     */
+    public function setIcon($icon);
+
+    /**
+     * @return string
+     */
+    public function getUrl();
+
+    /**
+     * @param string $url
+     * @return self
+     */
+    public function setUrl($url);
+
+    /**
+     * @return string
+     */
+    public function getImage();
+
+    /**
+     * @param string $image
+     * @return self
+     */
+    public function setImage($image);
+
+    /**
+     * @return string
+     */
+    public function getBadge();
+
+    /**
+     * @param string $badge
+     * @return self
+     */
+    public function setBadge($badge);
 }

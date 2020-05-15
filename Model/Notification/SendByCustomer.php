@@ -19,25 +19,30 @@ class SendByCustomer
      */
     protected $customerToDeviceRepository;
 
+    /**
+     * @var \MageSuite\PwaNotifications\Model\Permission\DevicesHavePermissions
+     */
+    protected $devicesHavePermissions;
+
     public function __construct(
-        PublishToQueue $publishToQueue,
+        \MageSuite\PwaNotifications\Model\Notification\PublishToQueue $publishToQueue,
         \MageSuite\PwaNotifications\Model\EmailToDeviceRepository $emailToDeviceRepository,
-        \MageSuite\PwaNotifications\Model\CustomerToDeviceRepository $customerToDeviceRepository
+        \MageSuite\PwaNotifications\Model\CustomerToDeviceRepository $customerToDeviceRepository,
+        \MageSuite\PwaNotifications\Model\Permission\DevicesHavePermissions $devicesHavePermissions
     ) {
         $this->publishToQueue = $publishToQueue;
         $this->emailToDeviceRepository = $emailToDeviceRepository;
         $this->customerToDeviceRepository = $customerToDeviceRepository;
+        $this->devicesHavePermissions = $devicesHavePermissions;
     }
 
     /**
      * @param \Magento\Customer\Model\Customer $customer
      * @param $message
      */
-    public function execute($customer, $message)
+    public function execute($customer, $notification, $requiredPermissions = [])
     {
-        $customerId = $customer->getId();
-
-        $deviceIds = $this->customerToDeviceRepository->getDevicesByCustomerId($customerId);
+        $deviceIds = $this->customerToDeviceRepository->getDevicesByCustomerId($customer->getId());
         $deviceIds = array_merge($deviceIds, $this->emailToDeviceRepository->getDevicesByEmail($customer->getEmail()));
 
         $deviceIds = array_unique($deviceIds);
@@ -46,8 +51,12 @@ class SendByCustomer
             return;
         }
 
+        if (!$this->devicesHavePermissions->execute($deviceIds, $requiredPermissions)) {
+            return;
+        }
+
         foreach ($deviceIds as $deviceId) {
-            $this->publishToQueue->execute($deviceId, $message);
+            $this->publishToQueue->execute($deviceId, $notification);
         }
     }
 }

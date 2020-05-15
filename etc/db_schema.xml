@@ -15,6 +15,41 @@
             <column name="identifier"/>
         </index>
     </table>
+    <table name="pwa_permission" resource="default" engine="innodb" comment="Device configuration">
+        <column xsi:type="int" name="permission_id" unsigned="true" nullable="false" identity="true"
+                comment="Permision ID"/>
+        <column xsi:type="varchar" length="64" name="identifier" nullable="false" comment="Permission identifier" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="permission_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="UNIQUE_IDENTIFIER">
+            <column name="identifier"/>
+        </constraint>
+    </table>
+    <table name="pwa_device_permission" resource="default" engine="innodb" comment="Device configuration">
+        <column xsi:type="int" name="permission_id" unsigned="true" nullable="false" identity="false"
+                comment="Permission ID"/>
+        <column xsi:type="int" name="device_id" unsigned="true" nullable="false" identity="false"
+                comment="Device ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="permission_id"/>
+            <column name="device_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="PWA_DEVICE_PERMISSION_PERMISSION_ID_TO_PWA_PERMISSION_PERMISSION_ID"
+                    table="pwa_device_permission"
+                    column="permission_id"
+                    referenceTable="pwa_permission"
+                    referenceColumn="permission_id"
+                    onDelete="CASCADE"
+        />
+        <constraint xsi:type="foreign" referenceId="PWA_DEVICE_PERMISSION_DEVICE_ID_TO_PWA_DEVICE_DEVICE_ID"
+                    table="pwa_device_permission"
+                    column="device_id"
+                    referenceTable="pwa_device"
+                    referenceColumn="device_id"
+                    onDelete="CASCADE"
+        />
+    </table>
     <table name="pwa_order_device" resource="default" engine="innodb" comment="Order to device linking table">
         <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" identity="true"
                 comment="Order ID"/>

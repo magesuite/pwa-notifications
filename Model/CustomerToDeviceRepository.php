@@ -43,14 +43,29 @@ class CustomerToDeviceRepository
      * @param $orderId
      * @return int[]
      */
-    public function getDevicesByCustomerId($customerId)
+    public function getDevicesByCustomerId($customerIds)
     {
         $table = $this->connection->getTableName('pwa_customer_device');
 
         $select = $this->connection->select();
         $select->from($table, ['device_id']);
-        $select->where('customer_id = ?', $customerId);
+        $select->where('customer_id IN(?)', $customerIds);
 
         return $this->connection->fetchCol($select);
+    }
+
+    public function getRelatedDevices($deviceId)
+    {
+        $customers = $this->getCustomersByDeviceId($deviceId);
+
+        $relatedDevicesIds = [];
+
+        if (empty($customers)) {
+            return $relatedDevicesIds;
+        }
+
+        $relatedDevicesIds = $this->getDevicesByCustomerId($customers);
+
+        return $relatedDevicesIds;
     }
 }

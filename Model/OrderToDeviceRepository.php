@@ -49,8 +49,23 @@ class OrderToDeviceRepository
 
         $select = $this->connection->select();
         $select->from($table, ['device_id']);
-        $select->where('order_id = ?', $orderId);
+        $select->where('order_id IN(?)', $orderId);
 
         return $this->connection->fetchCol($select);
+    }
+
+    public function getRelatedDevices($deviceId)
+    {
+        $orders = $this->getOrdersByDeviceId($deviceId);
+
+        $relatedDevicesIds = [];
+
+        if (empty($orders)) {
+            return $relatedDevicesIds;
+        }
+
+        $relatedDevicesIds = $this->getDevicesByOrderId($orders);
+
+        return $relatedDevicesIds;
     }
 }

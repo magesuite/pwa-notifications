@@ -49,7 +49,7 @@ class Consumer
         $webPush = $this->clientFactory->create();
         $subscription = $this->subscriptionFactory->create($device);
 
-        $webPush->sendNotification($subscription, $notification->getMessage());
+        $webPush->sendNotification($subscription, (string)$notification);
 
         /** @var \Minishlink\WebPush\MessageSentReport $report */
         foreach ($webPush->flush() as $report) {

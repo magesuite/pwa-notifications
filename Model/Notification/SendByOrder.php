@@ -5,7 +5,7 @@ namespace MageSuite\PwaNotifications\Model\Notification;
 class SendByOrder
 {
     /**
-     * @var PublishToQueue
+     * @var \MageSuite\PwaNotifications\Model\Notification\PublishToQueue
      */
     protected $publishToQueue;
 
@@ -24,23 +24,30 @@ class SendByOrder
      */
     protected $customerToDeviceRepository;
 
+    /**
+     * @var \MageSuite\PwaNotifications\Model\Permission\DevicesHavePermissions
+     */
+    protected $devicesHavePermissions;
+
     public function __construct(
-        PublishToQueue $publishToQueue,
+        \MageSuite\PwaNotifications\Model\Notification\PublishToQueue $publishToQueue,
         \MageSuite\PwaNotifications\Model\OrderToDeviceRepository $orderToDeviceRepository,
         \MageSuite\PwaNotifications\Model\EmailToDeviceRepository $emailToDeviceRepository,
-        \MageSuite\PwaNotifications\Model\CustomerToDeviceRepository $customerToDeviceRepository
+        \MageSuite\PwaNotifications\Model\CustomerToDeviceRepository $customerToDeviceRepository,
+        \MageSuite\PwaNotifications\Model\Permission\DevicesHavePermissions $devicesHavePermissions
     ) {
         $this->publishToQueue = $publishToQueue;
         $this->orderToDeviceRepository = $orderToDeviceRepository;
         $this->emailToDeviceRepository = $emailToDeviceRepository;
         $this->customerToDeviceRepository = $customerToDeviceRepository;
+        $this->devicesHavePermissions = $devicesHavePermissions;
     }
 
     /**
      * @param \Magento\Sales\Model\Order $order
      * @param $message
      */
-    public function execute($order, $message)
+    public function execute($order, $notification, $requiredPermissions = [])
     {
         $orderId = $order->getId();
         $email = $order->getCustomerEmail();
@@ -59,8 +66,12 @@ class SendByOrder
             return;
         }
 
+        if (!$this->devicesHavePermissions->execute($deviceIds, $requiredPermissions)) {
+            return;
+        }
+
         foreach ($deviceIds as $deviceId) {
-            $this->publishToQueue->execute($deviceId, $message);
+            $this->publishToQueue->execute($deviceId, $notification);
         }
     }
 }

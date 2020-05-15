@@ -29,18 +29,16 @@ class DeviceInformationManagement implements \MageSuite\PwaNotifications\Api\Dev
         $this->sessionManager = $sessionManager;
     }
 
-    public function save(string $endpoint, \MageSuite\PwaNotifications\Api\Data\EncryptionKeysInterface $keys)
+    public function save(string $endpoint, \MageSuite\PwaNotifications\Api\Data\EncryptionKeysInterface $keys, array $permissions = [])
     {
         $identifier = hash('sha256', $endpoint . $keys->getP256dh() . $keys->getAuth());
-
-        /** @var Device $device */
-        $device = $this->deviceFactory->create();
-        $device->load($identifier, 'identifier');
+        $device = $this->getDeviceByIdentifier($identifier);
 
         if (!$device->getId()) {
             $device->setEndpoint($endpoint);
             $device->setP256dh($keys->getP256dh());
             $device->setAuth($keys->getAuth());
+            $device->setPermissions($permissions);
             $device->setIdentifier($identifier);
 
             $device->save();

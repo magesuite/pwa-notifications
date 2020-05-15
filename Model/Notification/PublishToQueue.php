@@ -17,11 +17,9 @@ class PublishToQueue
         $this->queuePublisher = $queuePublisher;
     }
 
-    public function execute($deviceId, $notificationMessage)
+    public function execute($deviceId, \MageSuite\PwaNotifications\Api\Data\NotificationInterface $notification)
     {
-        $notification = new \MageSuite\PwaNotifications\Model\Data\Notification();
         $notification->setDeviceId($deviceId);
-        $notification->setMessage($notificationMessage);
 
         $this->queuePublisher->publish(
             self::TOPIC,

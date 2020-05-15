@@ -12,7 +12,32 @@ class Notification implements \MageSuite\PwaNotifications\Api\Data\NotificationI
     /**
      * @var string
      */
-    protected $message;
+    protected $body;
+
+    /**
+     * @var string
+     */
+    protected $title;
+
+    /**
+     * @var string
+     */
+    protected $icon;
+
+    /**
+     * @var string
+     */
+    protected $url;
+
+    /**
+     * @var string
+     */
+    protected $image;
+
+    /**
+     * @var string
+     */
+    protected $badge;
 
     /**
      * @inheritDoc
@@ -34,25 +59,116 @@ class Notification implements \MageSuite\PwaNotifications\Api\Data\NotificationI
     /**
      * @inheritDoc
      */
-    public function getMessage()
+    public function getBody()
     {
-        return $this->message;
+        return $this->body;
     }
 
     /**
      * @inheritDoc
      */
-    public function setMessage($message)
+    public function setBody($body)
     {
-        $this->message = $message;
+        $this->body = $body;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getIcon()
+    {
+        return $this->icon;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getBadge()
+    {
+        return $this->badge;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setBadge($badge)
+    {
+        $this->badge = $badge;
         return $this;
     }
 
     public function __toString()
     {
         return json_encode([
-            'deviceId' => $this->getDeviceId(),
-            'message' => $this->getMessage(),
+            'title' => $this->getTitle(),
+            'body' => $this->getBody(),
+            'icon' => $this->getIcon(),
+            'image' => $this->getImage(),
+            'badge' => $this->getBadge(),
+            'data' => [
+                'url' => $this->getUrl(),
+            ]
         ]);
     }
 }
