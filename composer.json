@@ -1,14 +1,19 @@
 {
-  "name": "creativestyle/magesuite-pwa-notifications",
-  "description": "Extension responsible for PWA notifications",
-  "type": "magento2-module",
-  "license": [
-    "OSL-3.0"
-  ],
-  "autoload": {
-    "files": [ "registration.php" ],
-    "psr-4": {
-      "MageSuite\\PwaNotifications\\": ""
+    "name": "creativestyle/magesuite-pwa-notifications",
+    "description": "Extension responsible for PWA notifications",
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0"
+    ],
+    "require": {
+        "minishlink/web-push": "^5.2"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "MageSuite\\PwaNotifications\\": ""
+        }
     }
-  }
 }

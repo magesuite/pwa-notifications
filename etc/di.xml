@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="MageSuite\PwaNotifications\Api\DeviceInformationManagementInterface"
+                type="MageSuite\PwaNotifications\Model\DeviceInformationManagement" />
+
+    <preference for="MageSuite\PwaNotifications\Api\Data\EncryptionKeysInterface"
+                type="MageSuite\PwaNotifications\Model\Data\EncryptionKeys" />
+
+    <preference for="MageSuite\PwaNotifications\Api\Data\NotificationInterface"
+                type="MageSuite\PwaNotifications\Model\Data\Notification" />
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="pwa_send_notification" xsi:type="object">MageSuite\PwaNotifications\Console\Command\SendNotification</item>
+                <item name="pwa_send_notification_by_order" xsi:type="object">MageSuite\PwaNotifications\Console\Command\SendByOrder</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Sales\Model\Service\OrderService">
+        <plugin name="link_order_with_device_after_placing_order"
+                type="MageSuite\PwaNotifications\Plugin\Magento\Sales\Model\OrderManagement\LinkDeviceWithPlacedOrder"/>
+    </type>
+
+    <type name="MageSuite\PwaNotifications\Model\Permission\Pool">
+        <arguments>
+            <argument name="permissions" xsi:type="array">
+                <item name="order_status_notification" xsi:type="string">order_status_notification</item>
+                <item name="advertisement" xsi:type="string">advertisement</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
