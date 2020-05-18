@@ -84,7 +84,7 @@ class Repository
             }
         }
 
-        return $this->connection->insertMultiple($table, $data);
+        return $this->connection->insertOnDuplicate($table, $data);
     }
 
     protected function mapPermissionsToIds($permissions)
