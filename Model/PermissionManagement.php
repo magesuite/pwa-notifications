@@ -37,7 +37,7 @@ class PermissionManagement implements \MageSuite\PwaNotifications\Api\Permission
         $deviceId = $this->session->getDeviceId();
 
         if (!is_numeric($deviceId)) {
-            return;
+            return false;
         }
 
         $devicesIds = array_merge([$deviceId], $this->getRelatedDevices->execute($deviceId));
@@ -55,7 +55,7 @@ class PermissionManagement implements \MageSuite\PwaNotifications\Api\Permission
         $deviceId = $this->session->getDeviceId();
 
         if (!is_numeric($deviceId)) {
-            return;
+            return false;
         }
 
         $devicesIds = array_merge([$deviceId], $this->getRelatedDevices->execute($deviceId));
