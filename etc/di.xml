@@ -4,6 +4,9 @@
     <preference for="MageSuite\PwaNotifications\Api\DeviceInformationManagementInterface"
                 type="MageSuite\PwaNotifications\Model\DeviceInformationManagement" />
 
+    <preference for="MageSuite\PwaNotifications\Api\PermissionManagementInterface"
+                type="MageSuite\PwaNotifications\Model\PermissionManagement" />
+
     <preference for="MageSuite\PwaNotifications\Api\Data\EncryptionKeysInterface"
                 type="MageSuite\PwaNotifications\Model\Data\EncryptionKeys" />
 
