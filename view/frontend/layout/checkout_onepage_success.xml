@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="before.body.end">
+            <container name="pwa.notification.panel.container" htmlTag="div" htmlClass="cs-container cs-container--pwa-notification-panel" after="breadcrumbs.container" ifconfig="pwa/general/is_enabled">
+                <container name="pwa.notification.panel.container.inner" htmlTag="div" htmlClass="cs-container__inner">
+                    <block name="pwa.notification.panel.main" template="MageSuite_PwaNotifications::notification-panel.phtml">
+                        <arguments>
+                            <argument name="notifications_enable_title" xsi:type="string" translate="true">Enable notifications</argument>
+                            <argument name="notifications_enable_description" xsi:type="string" translate="true"></argument>
+                            <argument name="notifications_browser_title" xsi:type="string" translate="true">Almost there</argument>
+                            <argument name="notifications_browser_description" xsi:type="string" translate="true">Please confirm that you would like to recieve notifications in your browser.</argument>
+                            <argument name="notifications_enabled_title" xsi:type="string" translate="true">Notification enabled</argument>
+                            <argument name="button_accept_text" xsi:type="string" translate="true">Yes, please</argument>
+                            <argument name="button_decline_text" xsi:type="string" translate="true">No, thank you</argument>
+                        </arguments>
+                        <block class="MageSuite\ThemeHelpers\Block\Icon" name="pwa.notification.panel.icon.request">
+                            <arguments>
+                                <argument name="icon_url" xsi:type="string">images/icons/pwa-notification-panel/icon_notification-request.svg</argument>
+                                <argument name="css_class" xsi:type="string">cs-pwa-notification-panel__icon cs-pwa-notification-panel__icon--animate cs-pwa-notification-panel__icon--request</argument>
+                                <argument name="inlined" xsi:type="boolean">true</argument>
+                                <argument name="lazy_loaded" xsi:type="boolean">false</argument>
+                            </arguments>
+                        </block>
+                        <block class="MageSuite\ThemeHelpers\Block\Icon" name="pwa.notification.panel.icon.browser">
+                            <arguments>
+                                <argument name="icon_url" xsi:type="string">images/icons/pwa-notification-panel/icon_notification-browser.svg</argument>
+                                <argument name="css_class" xsi:type="string">cs-pwa-notification-panel__icon cs-pwa-notification-panel__icon--animate cs-pwa-notification-panel__icon--browser</argument>
+                                <argument name="inlined" xsi:type="boolean">true</argument>
+                                <argument name="lazy_loaded" xsi:type="boolean">false</argument>
+                            </arguments>
+                        </block>
+                        <block class="MageSuite\ThemeHelpers\Block\Icon" name="pwa.notification.panel.icon.enabled">
+                            <arguments>
+                                <argument name="icon_url" xsi:type="string">images/icons/pwa-notification-panel/icon_notification-enabled.svg</argument>
+                                <argument name="css_class" xsi:type="string">cs-pwa-notification-panel__icon cs-pwa-notification-panel__icon--animate cs-pwa-notification-panel__icon--enabled</argument>
+                                <argument name="inlined" xsi:type="boolean">true</argument>
+                                <argument name="lazy_loaded" xsi:type="boolean">false</argument>
+                            </arguments>
+                        </block>
+                        <block class="MageSuite\ThemeHelpers\Block\Icon" name="pwa.notification.panel.close.icon">
+                            <arguments>
+                                <argument name="icon_url" xsi:type="string">images/icons/pwa-notification-panel/icon_close.svg</argument>
+                                <argument name="css_class" xsi:type="string">cs-pwa-notification-panel__close-icon</argument>
+                                <argument name="inlined" xsi:type="boolean">true</argument>
+                                <argument name="lazy_loaded" xsi:type="boolean">false</argument>
+                            </arguments>
+                        </block>
+                        <block class="MageSuite\ThemeHelpers\Block\Icon" name="pwa.notification.panel.button.accept.icon">
+                            <arguments>
+                                <argument name="icon_url" xsi:type="string">images/icons/button/icon-default-primary.svg</argument>
+                                <argument name="css_class" xsi:type="string">cs-pwa-notification-panel__button-icon</argument>
+                                <argument name="inlined" xsi:type="boolean">true</argument>
+                                <argument name="lazy_loaded" xsi:type="boolean">false</argument>
+                            </arguments>
+                        </block>
+                        <block class="MageSuite\ThemeHelpers\Block\Icon" name="pwa.notification.panel.button.decline.icon">
+                            <arguments>
+                                <argument name="icon_url" xsi:type="string">images/icons/button/icon-default-secondary.svg</argument>
+                                <argument name="css_class" xsi:type="string">cs-pwa-notification-panel__button-icon</argument>
+                                <argument name="inlined" xsi:type="boolean">true</argument>
+                                <argument name="lazy_loaded" xsi:type="boolean">false</argument>
+                            </arguments>
+                        </block>
+                        <block class="MageSuite\ThemeHelpers\Block\Icon" name="pwa.notification.panel.permission.icon">
+                            <arguments>
+                                <argument name="icon_url" xsi:type="string">images/icons/pwa-notification-panel/icon_notification-browser.svg</argument>
+                                <argument name="css_class" xsi:type="string">cs-pwa-notification-panel__permission-icon</argument>
+                                <argument name="inlined" xsi:type="boolean">true</argument>
+                                <argument name="lazy_loaded" xsi:type="boolean">false</argument>
+                            </arguments>
+                        </block>
+                    </block>
+                </container>
+            </container>
+
+            <block name="pwa.notification.shipping" template="MageSuite_PwaNotifications::notification-shipping.phtml" ifconfig="pwa/general/is_enabled">
+                <arguments>
+                    <argument name="configuration_helper" xsi:type="object">MageSuite\PwaNotifications\Helper\Configuration</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+    </body>
+</page>

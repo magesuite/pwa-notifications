@@ -1,6 +1,5 @@
 <?php
 // phpcs:ignoreFile
-// below code is only for BE testing purposes, will be refactored/changed by frontend developers
 /** @var \MageSuite\Pwa\Block\Data $block */
 /** @var \MageSuite\Pwa\Model\Data\ViewModel $viewModel */
 $viewModel = $block->getViewModel();
@@ -10,6 +9,14 @@ $configuration = $viewModel->getConfiguration();
     self.addEventListener('push', function (event) {
         var options = JSON.parse(event.data.text());
         var title = options['title'] === undefined || options['title'] === null ? '<?=$configuration->getName()?>' : options['title'];
+
+        if(options.icon === undefined) {
+            options.icon = '<?= $block->getViewFileUrl('Magento_Theme::icon-512x512.png'); ?>';
+        }
+
+        if(options.badge === undefined) {
+            options.badge = '<?= $block->getViewFileUrl('Magento_Theme::badge-72x72.png'); ?>';
+        }
 
         event.waitUntil(self.registration.showNotification(title, options));
     });
