@@ -13,4 +13,8 @@
     <event name="customer_login">
         <observer name="link_customer_with_device" instance="MageSuite\PwaNotifications\Observer\Customer\LinkCustomerWithDevice" />
     </event>
+
+    <event name="controller_action_predispatch">
+        <observer name="register_device_identifier_from_cookie" instance="MageSuite\PwaNotifications\Observer\Device\RegisterDeviceIdentifierFromCookie" />
+    </event>
 </config>
