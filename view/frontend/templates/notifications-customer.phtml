@@ -1,29 +1,20 @@
+<?php /** @var $viewModel \MageSuite\PwaNotifications\ViewModel\Permissions */ ?>
+<?php $viewModel = $block->getViewModel(); ?>
+<?php $devicePermissions = $viewModel->getCurrentDevicePermissions(); ?>
 <?= $block->getChildHtml('form_before') ?>
     <form class="form form-pwanotifications-manage">
         <fieldset class="fieldset">
             <?= $block->getBlockHtml('formkey') ?>
-            <legend class="legend"><span><?= $block->escapeHtml(__('Notification settings')) ?></span></legend><br>
-            <div class="field choice">
-                <input type="checkbox" name="shipping" id="shipping" value="" title="<?= $block->escapeHtmlAttr(__('Shipping')) ?>"<?php if ($block->getIsSubscribedForShipping()) : ?> checked="checked"<?php endif; ?> class="checkbox">
-                <label for="shipping" class="label">
-                    <strong><?= $block->escapeHtml(__('Shipping')) ?></strong><br>
-                    <span><?= $block->escapeHtml(__('You will be notified about your order delivery status')) ?></span>
-                </label>
-            </div>
-            <div class="field choice">
-                <input type="checkbox" name="discount" id="discount" value="" title="<?= $block->escapeHtmlAttr(__('Shipping')) ?>"<?php if ($block->getIsSubscribedFordiscount()) : ?> checked="checked"<?php endif; ?> class="checkbox">
-                <label for="discount" class="label">
-                    <strong><?= $block->escapeHtml(__('Discount')) ?></strong><br>
-                    <span><?= $block->escapeHtml(__('You will be notified about reduced product prices')) ?></span>
-                </label>
-            </div>
-            <div class="field choice">
-                <input type="checkbox" name="availability" id="avilability" value="" title="<?= $block->escapeHtmlAttr(__('Shipping')) ?>"<?php if ($block->getIsSubscribedForAvailability()) : ?> checked="checked"<?php endif; ?> class="checkbox">
-                <label for="availability" class="label">
-                    <strong><?= $block->escapeHtml(__('Product availability')) ?></strong><br>
-                    <span><?= $block->escapeHtml(__('You will be notified about the re-availability of the products you are interested in')) ?></span>
-                </label>
-            </div>
+            <legend class="legend"><span><?= $block->escapeHtml(__('Push notifications settings')) ?></span></legend><br>
+            <?php foreach($viewModel->getPermissions() as $permissionIdentifier => $permission): ?>
+                <div class="field choice">
+                    <input type="checkbox" name="<?= $permissionIdentifier ?>" id="<?= $permissionIdentifier ?>" value="" title="<?= $block->escapeHtmlAttr(__($permission['label'])) ?>"<?php if (in_array($permissionIdentifier, $devicePermissions)) : ?> checked="checked"<?php endif; ?> class="checkbox">
+                    <label for="<?= $permissionIdentifier ?>" class="label">
+                        <strong><?= $block->escapeHtml(__($permission['label'])) ?></strong><br>
+                        <span><?= $block->escapeHtml(__($permission['description'])) ?></span>
+                    </label>
+                </div>
+            <?php endforeach; ?>
             <?php /* Extensions placeholder */ ?>
             <?= $block->getChildHtml('customer.form.pwanotifications.extra') ?>
         </fieldset>

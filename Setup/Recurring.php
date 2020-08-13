@@ -32,7 +32,7 @@ class Recurring implements \Magento\Framework\Setup\InstallSchemaInterface
 
         $tableName = $this->connection->getTableName('pwa_permission');
 
-        foreach ($this->permissionPool->getPermissions() as $permissionIdentifier) {
+        foreach ($this->permissionPool->getPermissions() as $permissionIdentifier => $permission) {
             $this->connection->insertOnDuplicate($tableName, ['identifier' => $permissionIdentifier]);
         }
 

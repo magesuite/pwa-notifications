@@ -30,8 +30,14 @@
     <type name="MageSuite\PwaNotifications\Model\Permission\Pool">
         <arguments>
             <argument name="permissions" xsi:type="array">
-                <item name="order_status_notification" xsi:type="string">order_status_notification</item>
-                <item name="advertisement" xsi:type="string">advertisement</item>
+                <item name="order_status_notification" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Order status</item>
+                    <item name="description" xsi:type="string" translate="true">You will be notified about your order status.</item>
+                </item>
+                <item name="advertisement" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Advertisements</item>
+                    <item name="description" xsi:type="string" translate="true">You will receive information about upcoming sales and promitions.</item>
+                </item>
             </argument>
         </arguments>
     </type>
