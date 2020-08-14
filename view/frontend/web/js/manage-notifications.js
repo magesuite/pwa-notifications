@@ -1,9 +1,9 @@
 define([
     'jquery',
     'mage/url',
-    'Magento_Ui/js/model/messageList',
+    'Magento_Customer/js/customer-data',
     'mage/translate'
-], function ($, url, messageList) {
+], function ($, url, customerData) {
     $.widget('magesuite.pwaNotificationManage', {
         options: {
             checkboxSelector: 'input[type="checkbox"]',
@@ -30,8 +30,19 @@ define([
                 }).then(function () {
                     $('body').trigger('processStop');
 
-                    messageList.addSuccessMessage({
-                        message: $.mage.__('Permission settings were saved correctly.')
+                    var message = $.mage.__('Permission settings were saved correctly.');
+
+                    var messagesObservable = customerData.get("messages");
+                    var subscription = messagesObservable.subscribe(function(messages) {
+                        subscription.dispose();
+                        if (!messages.messages) {
+                            messages.messages = [];
+                        }
+                        messages.messages.push({
+                            type: "success",
+                            text: message,
+                        });
+                        messagesObservable(messages);
                     });
                 });
             } else {
@@ -41,8 +52,19 @@ define([
                 }).then(function () {
                     $('body').trigger('processStop');
 
-                    messageList.addSuccessMessage({
-                        message: $.mage.__('Permission settings were saved correctly.')
+                    var message = $.mage.__('Permission settings were saved correctly.');
+
+                    var messagesObservable = customerData.get("messages");
+                    var subscription = messagesObservable.subscribe(function(messages) {
+                        subscription.dispose();
+                        if (!messages.messages) {
+                            messages.messages = [];
+                        }
+                        messages.messages.push({
+                            type: "success",
+                            text: message,
+                        });
+                        messagesObservable(messages);
                     });
                 });
             }
