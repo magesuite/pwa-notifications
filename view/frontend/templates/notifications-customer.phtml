@@ -1,0 +1,33 @@
+<?php /** @var $viewModel \MageSuite\PwaNotifications\ViewModel\Permissions */ ?>
+<?php $viewModel = $block->getViewModel(); ?>
+<?php $devicePermissions = $viewModel->getCurrentDevicePermissions(); ?>
+<?= $block->getChildHtml('form_before') ?>
+    <form class="form form-pwanotifications-manage">
+        <fieldset class="fieldset">
+            <?= $block->getBlockHtml('formkey') ?>
+            <legend class="legend"><span><?= $block->escapeHtml(__('Push notifications settings')) ?></span></legend><br>
+            <?php foreach($viewModel->getPermissions() as $permissionIdentifier => $permission): ?>
+                <div class="field choice">
+                    <input type="checkbox" name="<?= $permissionIdentifier ?>" id="<?= $permissionIdentifier ?>" value="" title="<?= $block->escapeHtmlAttr(__($permission['label'])) ?>"<?php if (in_array($permissionIdentifier, $devicePermissions)) : ?> checked="checked"<?php endif; ?> class="checkbox">
+                    <label for="<?= $permissionIdentifier ?>" class="label">
+                        <strong><?= $block->escapeHtml(__($permission['label'])) ?></strong><br>
+                        <span><?= $block->escapeHtml(__($permission['description'])) ?></span>
+                    </label>
+                </div>
+            <?php endforeach; ?>
+            <?php /* Extensions placeholder */ ?>
+            <?= $block->getChildHtml('customer.form.pwanotifications.extra') ?>
+        </fieldset>
+    </form>
+<?php /* Extensions placeholder */ ?>
+<?= $block->getChildHtml('customer.form.pwanotifications.extra2') ?>
+
+<script type="text/x-magento-init">
+{
+    ".form-pwanotifications-manage": {
+        "MageSuite_PwaNotifications/js/manage-notifications": {
+            "manageUrl": ""
+        }
+    }
+}
+</script>

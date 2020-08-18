@@ -2,7 +2,7 @@
 
 namespace MageSuite\PwaNotifications\ViewModel;
 
-class Permissions
+class Permissions implements \Magento\Framework\View\Element\Block\ArgumentInterface
 {
     /**
      * @var \MageSuite\PwaNotifications\Model\Device\GetRelatedDevices
@@ -19,17 +19,24 @@ class Permissions
      */
     protected $permissionRepository;
 
+    /**
+     * @var \MageSuite\PwaNotifications\Model\Permission\Pool
+     */
+    protected $permissionsPool;
+
     public function __construct(
         \MageSuite\PwaNotifications\Model\Device\GetRelatedDevices $getRelatedDevices,
         \MageSuite\PwaNotifications\Helper\Session $sessionHelper,
-        \MageSuite\PwaNotifications\Model\Permission\Repository $permissionRepository
+        \MageSuite\PwaNotifications\Model\Permission\Repository $permissionRepository,
+        \MageSuite\PwaNotifications\Model\Permission\Pool $permissionsPool
     ) {
         $this->getRelatedDevices = $getRelatedDevices;
         $this->sessionHelper = $sessionHelper;
         $this->permissionRepository = $permissionRepository;
+        $this->permissionsPool = $permissionsPool;
     }
 
-    public function getCurrentPermissions()
+    public function getCurrentDevicePermissions()
     {
         $deviceId = $this->sessionHelper->getDeviceId();
 
@@ -40,5 +47,9 @@ class Permissions
         $devicesIds = array_merge([$deviceId], $this->getRelatedDevices->execute($deviceId));
 
         return $this->permissionRepository->getDevicesPermissions($devicesIds);
+    }
+
+    public function getPermissions() {
+        return $this->permissionsPool->getPermissions();
     }
 }
