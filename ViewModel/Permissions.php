@@ -49,7 +49,8 @@ class Permissions implements \Magento\Framework\View\Element\Block\ArgumentInter
         return $this->permissionRepository->getDevicesPermissions($devicesIds);
     }
 
-    public function getPermissions() {
+    public function getPermissions()
+    {
         return $this->permissionsPool->getPermissions();
     }
 }

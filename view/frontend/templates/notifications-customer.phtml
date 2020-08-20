@@ -6,10 +6,10 @@
         <fieldset class="fieldset">
             <?= $block->getBlockHtml('formkey') ?>
             <legend class="legend"><span><?= $block->escapeHtml(__('Push notifications settings')) ?></span></legend><br>
-            <?php foreach($viewModel->getPermissions() as $permissionIdentifier => $permission): ?>
+            <?php foreach ($viewModel->getPermissions() as $permissionIdentifier => $permission) : ?>
                 <div class="field choice">
-                    <input type="checkbox" name="<?= $permissionIdentifier ?>" id="<?= $permissionIdentifier ?>" value="" title="<?= $block->escapeHtmlAttr(__($permission['label'])) ?>"<?php if (in_array($permissionIdentifier, $devicePermissions)) : ?> checked="checked"<?php endif; ?> class="checkbox">
-                    <label for="<?= $permissionIdentifier ?>" class="label">
+                    <input type="checkbox" name="<?= /* @noEscape */ $permissionIdentifier ?>" id="<?= /* @noEscape */ $permissionIdentifier ?>" value="" title="<?= $block->escapeHtmlAttr(__($permission['label'])) ?>"<?php if (in_array($permissionIdentifier, $devicePermissions)) : ?> checked="checked"<?php endif; ?> class="checkbox">
+                    <label for="<?= /* @noEscape */ $permissionIdentifier ?>" class="label">
                         <strong><?= $block->escapeHtml(__($permission['label'])) ?></strong><br>
                         <span><?= $block->escapeHtml(__($permission['description'])) ?></span>
                     </label>
