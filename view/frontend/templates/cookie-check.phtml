@@ -1,8 +1,13 @@
-
+<?php
+/** @var \MageSuite\PwaNotifications\Helper\Configuration $helper */
+$helper = $block->getConfigurationHelper();
+?>
 <script type="text/x-magento-init">
 {
     "*": {
-        "MageSuite_PwaNotifications/js/cookieCheck": {}
+        "MageSuite_PwaNotifications/js/cookie-check": {
+            "applicationServerKey": "<?= /* @noEscape */$helper->getServerPublicKey() ?>"
+        }
     }
 }
 </script>

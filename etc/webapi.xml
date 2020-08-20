@@ -7,6 +7,13 @@
         </resources>
     </route>
 
+    <route url="/V1/pwa/device_identifier" method="GET">
+        <service class="MageSuite\PwaNotifications\Api\DeviceInformationManagementInterface" method="get"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
     <route url="/V1/pwa/permission" method="POST">
         <service class="MageSuite\PwaNotifications\Api\PermissionManagementInterface" method="add"/>
         <resources>
