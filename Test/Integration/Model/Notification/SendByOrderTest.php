@@ -24,7 +24,7 @@ class SendByOrderTest extends AbstractNotificationTest
      */
     protected $orderToDeviceRepository;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
