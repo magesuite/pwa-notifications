@@ -24,7 +24,7 @@ class ConsumerTest extends AbstractNotificationTest
      */
     protected $logger;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

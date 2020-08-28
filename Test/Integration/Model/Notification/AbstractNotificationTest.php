@@ -27,7 +27,7 @@ abstract class AbstractNotificationTest extends \PHPUnit\Framework\TestCase
     /**
      * @inheritdoc
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
         $this->deviceHelper = $this->objectManager->create(\MageSuite\PwaNotifications\Test\Integration\DeviceHelper::class);

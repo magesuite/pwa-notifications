@@ -20,7 +20,7 @@ class LinkLastOrderAfterDeviceIsCreatedTest extends \PHPUnit\Framework\TestCase
     /**
      * @inheritdoc
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
         $this->deviceHelper = $this->objectManager->get(\MageSuite\PwaNotifications\Test\Integration\DeviceHelper::class);
