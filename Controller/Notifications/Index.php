@@ -1,7 +1,6 @@
 <?php
 namespace MageSuite\PwaNotifications\Controller\Notifications;
 
-
 class Index extends \Magento\Framework\App\Action\Action
 {
     /**
@@ -17,8 +16,7 @@ class Index extends \Magento\Framework\App\Action\Action
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Magento\Customer\Model\Session $customerSession
-    )
-    {
+    ) {
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
         $this->customerSession = $customerSession;
@@ -31,7 +29,7 @@ class Index extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
-        if(!$this->customerSession->getCustomerId()){
+        if (!$this->customerSession->getCustomerId()) {
             $this->messageManager->addNoticeMessage(__('Your session expired, please login again.'));
             $this->_redirect('customer/account/login');
         }

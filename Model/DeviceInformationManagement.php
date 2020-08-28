@@ -29,6 +29,20 @@ class DeviceInformationManagement implements \MageSuite\PwaNotifications\Api\Dev
         $this->sessionManager = $sessionManager;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function get(string $endpoint)
+    {
+        $device = $this->getDeviceByEndpoint($endpoint);
+
+        if (!$device->getId()) {
+            return '';
+        }
+
+        return $device->getIdentifier();
+    }
+
     public function save(string $endpoint, \MageSuite\PwaNotifications\Api\Data\EncryptionKeysInterface $keys, array $permissions = [])
     {
         $identifier = hash('sha256', $endpoint . $keys->getP256dh() . $keys->getAuth());
@@ -56,6 +70,15 @@ class DeviceInformationManagement implements \MageSuite\PwaNotifications\Api\Dev
         /** @var Device $device */
         $device = $this->deviceFactory->create();
         $device->load($identifier, 'identifier');
+
+        return $device;
+    }
+
+    public function getDeviceByEndpoint($endpoint)
+    {
+        /** @var Device $device */
+        $device = $this->deviceFactory->create();
+        $device->load($endpoint, 'endpoint');
 
         return $device;
     }
