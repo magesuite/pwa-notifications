@@ -1,6 +1,7 @@
 define([
     'jquery',
     'mage/url',
+    'mage/cookies',
     'mage/translate',
     'jquery-ui-modules/widget',
     'jquery-ui-modules/effect-fade'
