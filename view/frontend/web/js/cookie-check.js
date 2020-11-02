@@ -2,7 +2,8 @@ define([
     'jquery',
     'mage/url',
     'domReady!',
-    'jquery-ui-modules/widget'
+    'jquery-ui-modules/widget',
+    'mage/cookies'
 ], function($, url) {
     'use strict';
 
