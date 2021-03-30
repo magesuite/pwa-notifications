@@ -4,6 +4,8 @@
 /** @var \MageSuite\Pwa\Model\Data\ViewModel $viewModel */
 $viewModel = $block->getViewModel();
 $configuration = $viewModel->getConfiguration();
+$deviceInformationApiUrl = sprintf('%srest/V1/pwa/device_information', $viewModel->getStoreBaseUrl());
+
 ?>
 <script>
     self.addEventListener('push', function (event) {
@@ -36,6 +38,22 @@ $configuration = $viewModel->getConfiguration();
                 clients.openWindow(notification.data.url);
             }
             notification.close();
+        }
+    });
+
+    self.addEventListener('pushsubscriptionchange', function (event) {
+        if (event.oldSubscription && event.newSubscription) {
+            event.waitUntil(
+                fetch('<?=$deviceInformationApiUrl?>', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        oldEndpoint: event.oldSubscription.endpoint,
+                        endpoint: event.newSubscription.endpoint,
+                        keys: event.newSubscription.toJSON().keys
+                    })
+                })
+            );
         }
     });
 </script>

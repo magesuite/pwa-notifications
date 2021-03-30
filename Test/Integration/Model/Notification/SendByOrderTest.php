@@ -24,6 +24,11 @@ class SendByOrderTest extends AbstractNotificationTest
      */
     protected $orderToDeviceRepository;
 
+    /**
+     * @var \Magento\Framework\Session\SessionManagerInterface
+     */
+    protected $sessionManager;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -32,6 +37,7 @@ class SendByOrderTest extends AbstractNotificationTest
         $this->orderToDeviceRepository = $this->objectManager->create(\MageSuite\PwaNotifications\Model\OrderToDeviceRepository::class);
         $this->sendByOrder = $this->objectManager->create(\MageSuite\PwaNotifications\Model\Notification\SendByOrder::class);
         $this->orderHelper = $this->objectManager->create(\MageSuite\PwaNotifications\Test\Integration\OrderHelper::class);
+        $this->sessionManager = $this->objectManager->create(\Magento\Framework\Session\SessionManagerInterface::class);
     }
 
     /**
@@ -43,6 +49,8 @@ class SendByOrderTest extends AbstractNotificationTest
         $order = $this->orderHelper->placeOrder('guest_quote');
 
         $firstDeviceId = $this->deviceHelper->createDevice('firstEndpointTest');
+        $this->sessionManager->setPwaDeviceId(0);
+        
         $secondDeviceId = $this->deviceHelper->createDevice('secondEndpointTest');
 
         $this->emailToDeviceRepository->save('customer@example.com', $firstDeviceId);

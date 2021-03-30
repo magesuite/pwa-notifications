@@ -24,10 +24,7 @@ define([
         },
 
         _checkCookieAndPermission: function() {
-            if (
-                !$.cookie('pwa_device_identifier') &&
-                this._permissionForNotificationWasGranted()
-            ) {
+            if (this._permissionForNotificationWasGranted()) {
                 var applicationServerKey = this._urlBase64ToUint8Array(
                     this.options.applicationServerKey
                 );
@@ -48,17 +45,37 @@ define([
                     })
                     .then(
                         function(pushSubscription) {
-                            $.get({
-                                url: url.build('rest/V1/pwa/device_identifier?endpoint='+pushSubscription.endpoint),
-                                contentType: 'application/json'
-                            }).then(function(deviceIdentifier) {
-                                var oneYearInSeconds = 365 * 24 * 60 * 60 * 1000;
-                                var expire = new Date();
+                            var pwaDeviceEndpointFromCookie = $.cookie('pwa_device_endpoint');
 
-                                expire.setTime(expire.getTime() + oneYearInSeconds);
+                            if(
+                                pwaDeviceEndpointFromCookie === undefined
+                                || pwaDeviceEndpointFromCookie !== pushSubscription.endpoint
+                            ) {
+                                var pushSubscriptionData = JSON.parse(JSON.stringify(pushSubscription));
 
-                                $.cookie('pwa_device_identifier', deviceIdentifier, {expires: expire});
-                            });
+                                $.post({
+                                    url: url.build('rest/V1/pwa/device_information'),
+                                    data: JSON.stringify({
+                                        oldEndpoint: pwaDeviceEndpointFromCookie,
+                                        endpoint: pushSubscriptionData.endpoint,
+                                        keys: pushSubscriptionData.keys
+                                    }),
+                                    contentType: 'application/json'
+                                }).done(function(deviceEndpoint) {
+                                    var oneYearInSeconds = 365 * 24 * 60 * 60 * 1000,
+                                        expire = new Date();
+
+                                    expire.setTime(expire.getTime() + oneYearInSeconds);
+
+                                    $.cookie(
+                                        'pwa_device_endpoint',
+                                        deviceEndpoint,
+                                        {expires: expire}
+                                    );
+                                }).fail(function(response) {
+                                    throw new Error(response.responseJSON.message);
+                                });
+                            }
                         }
                     );
             }
