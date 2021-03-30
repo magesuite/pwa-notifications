@@ -24,8 +24,8 @@ class DeviceHelper
         $encryptionKeys->setP256dh('p256dhTest');
         $encryptionKeys->setAuth('authTest');
 
-        $deviceIdentifier = $this->deviceInformationManagement->save($endpoint, $encryptionKeys, $permissions);
-        $deviceId = $this->deviceInformationManagement->getDeviceByIdentifier($deviceIdentifier)->getId();
+        $deviceIdentifier = $this->deviceInformationManagement->save($endpoint, $encryptionKeys, '', $permissions);
+        $deviceId = $this->deviceInformationManagement->getDeviceByEndpoint($deviceIdentifier)->getId();
 
         return $deviceId;
     }

@@ -25,6 +25,11 @@ class SendByCustomerTest extends AbstractNotificationTest
     protected $sendByCustomer;
 
     /**
+     * @var \Magento\Framework\Session\SessionManagerInterface
+     */
+    protected $sessionManager;
+
+    /**
      * @inheritdoc
      */
     protected function setUp(): void
@@ -35,6 +40,7 @@ class SendByCustomerTest extends AbstractNotificationTest
         $this->customerToDeviceRepository = $this->objectManager->create(\MageSuite\PwaNotifications\Model\CustomerToDeviceRepository::class);
         $this->customerRepository = $this->objectManager->create(\Magento\Customer\Api\CustomerRepositoryInterface::class);
         $this->sendByCustomer = $this->objectManager->create(\MageSuite\PwaNotifications\Model\Notification\SendByCustomer::class);
+        $this->sessionManager = $this->objectManager->create(\Magento\Framework\Session\SessionManagerInterface::class);
     }
 
     /**
@@ -44,6 +50,8 @@ class SendByCustomerTest extends AbstractNotificationTest
     public function testItPublishesMessagesToQueue()
     {
         $firstDeviceId = $this->deviceHelper->createDevice('firstEndpointTest');
+        $this->sessionManager->setPwaDeviceId(0);
+
         $secondDeviceId = $this->deviceHelper->createDevice('secondEndpointTest');
 
         $customer = $this->customerRepository->get('customer@example.com');
