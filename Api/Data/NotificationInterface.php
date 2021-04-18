@@ -80,4 +80,15 @@ interface NotificationInterface
      * @return self
      */
     public function setBadge($badge);
+
+    /**
+     * @return string
+     */
+    public function __toString();
+
+    /**
+     * @param string $json
+     * @return string
+     */
+    public function fromString($json);
 }

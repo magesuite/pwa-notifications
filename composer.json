@@ -6,7 +6,8 @@
         "OSL-3.0"
     ],
     "require": {
-        "minishlink/web-push": "^5.2"
+        "minishlink/web-push": "^5.2",
+        "creativestyle/magesuite-queue": "^1.0.0"
     },
     "autoload": {
         "files": [

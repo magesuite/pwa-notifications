@@ -4,16 +4,13 @@ namespace MageSuite\PwaNotifications\Model\Notification;
 
 class PublishToQueue
 {
-    const TOPIC = 'pwa.notification.send';
-
     /**
-     * @var \Magento\Framework\MessageQueue\Publisher
+     * @var \MageSuite\Queue\Service\Publisher
      */
     protected $queuePublisher;
 
-    public function __construct(\Magento\Framework\MessageQueue\Publisher $queuePublisher)
+    public function __construct(\MageSuite\Queue\Service\Publisher $queuePublisher)
     {
-
         $this->queuePublisher = $queuePublisher;
     }
 
@@ -22,8 +19,8 @@ class PublishToQueue
         $notification->setDeviceId($deviceId);
 
         $this->queuePublisher->publish(
-            self::TOPIC,
-            $notification
+            \MageSuite\PwaNotifications\Model\Notification\Queue\Consumer::class,
+            (string)$notification
         );
     }
 }
