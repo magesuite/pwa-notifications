@@ -168,7 +168,22 @@ class Notification implements \MageSuite\PwaNotifications\Api\Data\NotificationI
             'badge' => $this->getBadge(),
             'data' => [
                 'url' => $this->getUrl(),
-            ]
+            ],
+            'deviceId' => $this->getDeviceId()
         ]);
+    }
+
+    public function fromString($json) {
+        $data = json_decode($json, true);
+
+        $this->setTitle($data['title'] ?? '');
+        $this->setBody($data['body'] ?? '');
+        $this->setIcon($data['icon'] ?? '');
+        $this->setImage($data['image'] ?? '');
+        $this->setBadge($data['badge'] ?? '');
+        $this->setUrl($data['data']['url'] ?? '');
+        $this->setDeviceId($data['deviceId'] ?? '');
+
+        return $this;
     }
 }

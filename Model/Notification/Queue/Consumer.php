@@ -1,8 +1,8 @@
 <?php
 
-namespace MageSuite\PwaNotifications\Model\Notification;
+namespace MageSuite\PwaNotifications\Model\Notification\Queue;
 
-class Consumer
+class Consumer implements \MageSuite\Queue\Api\Queue\HandlerInterface
 {
     /**
      * @var \MageSuite\PwaNotifications\Model\DeviceFactory
@@ -24,7 +24,13 @@ class Consumer
      */
     protected $logger;
 
+    /**
+     * @var \MageSuite\PwaNotifications\Api\Data\NotificationInterfaceFactory
+     */
+    protected $notificationFactory;
+
     public function __construct(
+        \MageSuite\PwaNotifications\Api\Data\NotificationInterfaceFactory $notificationFactory,
         \MageSuite\PwaNotifications\Model\DeviceFactory $deviceFactory,
         \MageSuite\PwaNotifications\Model\WebPush\Factory\Subscription $subscriptionFactory,
         \MageSuite\PwaNotifications\Model\WebPush\Factory\Client $clientFactory,
@@ -34,10 +40,18 @@ class Consumer
         $this->subscriptionFactory = $subscriptionFactory;
         $this->clientFactory = $clientFactory;
         $this->logger = $logger;
+        $this->notificationFactory = $notificationFactory;
     }
 
-    public function process(\MageSuite\PwaNotifications\Api\Data\NotificationInterface $notification)
+    /**
+     * @inheritDoc
+     */
+    public function execute($data)
     {
+        $notification = $this->notificationFactory
+            ->create()
+            ->fromString($data);
+
         $device = $this->deviceFactory->create();
         $device->load($notification->getDeviceId());
 
