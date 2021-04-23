@@ -42,7 +42,7 @@ class SendByEmailTest extends AbstractNotificationTest
         $messages = $this->getMessages();
 
         $this->assertCount(1, $messages);
-        $this->assertEquals($firstDeviceId, $messages[0]->device_id);
-        $this->assertEquals('test message', $messages[0]->body);
+        $this->assertEquals($firstDeviceId, $messages[0]['deviceId']);
+        $this->assertEquals('test message', $messages[0]['body']);
     }
 }

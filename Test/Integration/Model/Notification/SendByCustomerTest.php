@@ -67,9 +67,9 @@ class SendByCustomerTest extends AbstractNotificationTest
         $messages = $this->getMessages();
 
         $this->assertCount(2, $messages);
-        $this->assertEquals($secondDeviceId, $messages[0]->device_id);
-        $this->assertEquals($firstDeviceId, $messages[1]->device_id);
-        $this->assertEquals('test message', $messages[0]->body);
-        $this->assertEquals('test message', $messages[1]->body);
+        $this->assertEquals($secondDeviceId, $messages[0]['deviceId']);
+        $this->assertEquals($firstDeviceId, $messages[1]['deviceId']);
+        $this->assertEquals('test message', $messages[0]['body']);
+        $this->assertEquals('test message', $messages[1]['body']);
     }
 }

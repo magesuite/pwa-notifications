@@ -38,10 +38,17 @@ abstract class AbstractNotificationTest extends \PHPUnit\Framework\TestCase
     protected function getMessages()
     {
         $messageCollection = $this->messageCollectionFactory->create();
-        $messageCollection->addFieldToFilter('topic_name', 'pwa.notification.send');
+        $messageCollection->addFieldToFilter('topic_name', \MageSuite\Queue\Service\Publisher::DATABASE_CONSUMER_NAME);
 
-        $messages = array_map('json_decode', $messageCollection->getColumnValues('body'));
-
+        $messages = array_map([$this, 'decodeData'], $messageCollection->getColumnValues('body'));
         return $messages;
+    }
+
+    protected function decodeData($messageBody)
+    {
+        $decodedBody = json_decode($messageBody, true);
+        $data = json_decode($decodedBody['data']);
+
+        return json_decode($data, true);
     }
 }
