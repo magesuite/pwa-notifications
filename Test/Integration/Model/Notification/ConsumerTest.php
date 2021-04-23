@@ -15,7 +15,7 @@ class ConsumerTest extends AbstractNotificationTest
     protected $client;
 
     /**
-     * @var \MageSuite\PwaNotifications\Model\Notification\Consumer
+     * @var \MageSuite\PwaNotifications\Model\Notification\Queue\Consumer
      */
     protected $consumer;
 
@@ -52,7 +52,7 @@ class ConsumerTest extends AbstractNotificationTest
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->consumer = $this->objectManager->create(\MageSuite\PwaNotifications\Model\Notification\Consumer::class, [
+        $this->consumer = $this->objectManager->create(\MageSuite\PwaNotifications\Model\Notification\Queue\Consumer::class, [
             'subscriptionFactory' => $subscriptionFactory,
             'clientFactory' => $clientFactory,
             'logger' => $this->logger
@@ -70,10 +70,10 @@ class ConsumerTest extends AbstractNotificationTest
         $notification->setDeviceId($deviceId);
         $notification->setBody('pwa message');
 
-        $this->client->expects($this->once())->method('sendNotification')->with($this->subscription, $notification);
+        $this->client->expects($this->once())->method('sendNotification')->with($this->subscription, $notification->__toString());
         $this->client->expects($this->once())->method('flush')->willReturn($this->createGenerator([$messageSentReport]));
 
-        $this->consumer->process($notification);
+        $this->consumer->execute($notification->__toString());
     }
 
     public function testItDoesNotSendMessageWhenDeviceDoesNotExist()
@@ -86,7 +86,7 @@ class ConsumerTest extends AbstractNotificationTest
         $this->client->expects($this->exactly(0))->method('sendNotification');
         $this->client->expects($this->exactly(0))->method('flush');
 
-        $this->consumer->process($notification);
+        $this->consumer->execute($notification);
     }
 
     public function testItLogsErrorWhenItWasNotPossibleToSendMessage()
@@ -106,7 +106,7 @@ class ConsumerTest extends AbstractNotificationTest
         $this->client->method('flush')->willReturn($this->createGenerator([$messageSentReport]));
         $this->logger->expects($this->once())->method('error')->with('Failed to push PWA notification: error message');
 
-        $this->consumer->process($notification);
+        $this->consumer->execute($notification);
     }
 
     protected function createGenerator($returnedValues)

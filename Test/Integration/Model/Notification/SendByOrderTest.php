@@ -50,7 +50,7 @@ class SendByOrderTest extends AbstractNotificationTest
 
         $firstDeviceId = $this->deviceHelper->createDevice('firstEndpointTest');
         $this->sessionManager->setPwaDeviceId(0);
-        
+
         $secondDeviceId = $this->deviceHelper->createDevice('secondEndpointTest');
 
         $this->emailToDeviceRepository->save('customer@example.com', $firstDeviceId);
@@ -64,9 +64,9 @@ class SendByOrderTest extends AbstractNotificationTest
         $messages = $this->getMessages();
 
         $this->assertCount(2, $messages);
-        $this->assertEquals($firstDeviceId, $messages[0]->device_id);
-        $this->assertEquals($secondDeviceId, $messages[1]->device_id);
-        $this->assertEquals('test message', $messages[0]->body);
-        $this->assertEquals('test message', $messages[1]->body);
+        $this->assertEquals($firstDeviceId, $messages[0]['deviceId']);
+        $this->assertEquals($secondDeviceId, $messages[1]['deviceId']);
+        $this->assertEquals('test message', $messages[0]['body']);
+        $this->assertEquals('test message', $messages[1]['body']);
     }
 }

@@ -161,15 +161,15 @@ class Notification implements \MageSuite\PwaNotifications\Api\Data\NotificationI
     public function __toString()
     {
         return json_encode([
-            'title' => $this->getTitle(),
-            'body' => $this->getBody(),
-            'icon' => $this->getIcon(),
-            'image' => $this->getImage(),
-            'badge' => $this->getBadge(),
+            'title' => $this->getTitle() ?? '',
+            'body' => $this->getBody() ?? '',
+            'icon' => $this->getIcon() ?? '',
+            'image' => $this->getImage() ?? '',
+            'badge' => $this->getBadge() ?? '',
             'data' => [
-                'url' => $this->getUrl(),
+                'url' => $this->getUrl() ?? '',
             ],
-            'deviceId' => $this->getDeviceId()
+            'deviceId' => $this->getDeviceId() ?? ''
         ]);
     }
 
