@@ -36,9 +36,12 @@ define([
                 });
                 this.showActions(false);
                 this.subscriptionStatus('request');
+                this.canDisplay(false);
 
                 return this;
             }
+
+            this.canDisplay(true);
 
             this.subscriptionStatus.subscribe(function(newStatus) {
                 this.modifier('cs-push-notification__content--' + newStatus);
@@ -62,6 +65,7 @@ define([
         initObservable: function() {
             this._super()
                 .observe([
+                    'canDisplay',
                     'showPanel',
                     'content',
                     'showActions',
