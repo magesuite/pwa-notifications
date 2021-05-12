@@ -31,9 +31,9 @@ $deviceInformationApiUrl = sprintf('%srest/V1/pwa/device_information', $viewMode
             notification.close();
         } else {
             if(
-                notification.data !== undefined && notification.data !== null
+                notification.data != null
                 &&
-                notification.data.url !== undefined && notification.data.url !== null
+                notification.data.url != null && notification.data.url !== ''
             ) {
                 clients.openWindow(notification.data.url);
             }
