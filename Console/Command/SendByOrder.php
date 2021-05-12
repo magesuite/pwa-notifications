@@ -5,16 +5,6 @@ namespace MageSuite\PwaNotifications\Console\Command;
 class SendByOrder extends \Symfony\Component\Console\Command\Command
 {
     /**
-     * @var \MageSuite\PwaNotifications\Model\Notification\SendByOrder
-     */
-    protected $sendByOrder;
-
-    /**
-     * @var \Magento\Sales\Api\OrderRepositoryInterface
-     */
-    protected $orderRepository;
-
-    /**
      * @var \Magento\Framework\App\State
      */
     protected $state;
@@ -24,16 +14,26 @@ class SendByOrder extends \Symfony\Component\Console\Command\Command
      */
     protected $notificationFactory;
 
+    /**
+     * @var \MageSuite\PwaNotifications\Model\Notification\SendByOrderFactory
+     */
+    protected $sendByOrderFactory;
+
+    /**
+     * @var \Magento\Sales\Api\OrderRepositoryInterfaceFactory
+     */
+    protected $orderRepositoryFactory;
+
     public function __construct(
-        \MageSuite\PwaNotifications\Model\Notification\SendByOrder $sendByOrder,
-        \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
+        \MageSuite\PwaNotifications\Model\Notification\SendByOrderFactory $sendByOrderFactory,
+        \Magento\Sales\Api\OrderRepositoryInterfaceFactory $orderRepositoryFactory,
         \MageSuite\PwaNotifications\Api\Data\NotificationInterfaceFactory $notificationFactory,
         \Magento\Framework\App\State $state
     ) {
         parent::__construct();
 
-        $this->sendByOrder = $sendByOrder;
-        $this->orderRepository = $orderRepository;
+        $this->sendByOrderFactory = $sendByOrderFactory;
+        $this->orderRepositoryFactory = $orderRepositoryFactory;
         $this->state = $state;
         $this->notificationFactory = $notificationFactory;
     }
@@ -61,9 +61,9 @@ class SendByOrder extends \Symfony\Component\Console\Command\Command
             $notification = $this->notificationFactory->create();
             $notification->setBody($body);
 
-            $order = $this->orderRepository->get($orderId);
+            $order = $this->orderRepositoryFactory->create()->get($orderId);
 
-            $this->sendByOrder->execute($order, $notification, $permissions);
+            $this->sendByOrderFactory->create()->execute($order, $notification, $permissions);
 
             $output->writeln('Message was sent');
         });

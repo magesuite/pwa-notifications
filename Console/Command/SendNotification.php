@@ -5,23 +5,23 @@ namespace MageSuite\PwaNotifications\Console\Command;
 class SendNotification extends \Symfony\Component\Console\Command\Command
 {
     /**
-     * @var \MageSuite\PwaNotifications\Model\Notification\PublishToQueue
-     */
-    protected $publishToQueue;
-
-    /**
      * @var \MageSuite\PwaNotifications\Api\Data\NotificationInterfaceFactory
      */
     protected $notificationFactory;
 
+    /**
+     * @var \MageSuite\PwaNotifications\Model\Notification\PublishToQueueFactory
+     */
+    protected $publishToQueueFactory;
+
     public function __construct(
-        \MageSuite\PwaNotifications\Model\Notification\PublishToQueue $publishToQueue,
+        \MageSuite\PwaNotifications\Model\Notification\PublishToQueueFactory $publishToQueueFactory,
         \MageSuite\PwaNotifications\Api\Data\NotificationInterfaceFactory $notificationFactory
     ) {
         parent::__construct();
 
-        $this->publishToQueue = $publishToQueue;
         $this->notificationFactory = $notificationFactory;
+        $this->publishToQueueFactory = $publishToQueueFactory;
     }
 
     protected function configure()
@@ -70,7 +70,7 @@ class SendNotification extends \Symfony\Component\Console\Command\Command
             $notification->setBadge($input->getOption('badge'));
         }
 
-        $this->publishToQueue->execute($deviceId, $notification);
+        $this->publishToQueueFactory()->create()->execute($deviceId, $notification);
 
         $output->writeln('Message was published to queue');
     }
