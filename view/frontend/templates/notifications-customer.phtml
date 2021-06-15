@@ -6,6 +6,7 @@
         <fieldset class="fieldset">
             <?= $block->getBlockHtml('formkey') ?>
             <legend class="legend"><span><?= $block->escapeHtml(__('Push notifications settings')) ?></span></legend><br>
+            <p><?= $block->escapeHtml(__("Below settings work only when browser's settings allow sending push notifications.")) ?></p>
             <?php foreach ($viewModel->getPermissions() as $permissionIdentifier => $permission) : ?>
                 <div class="field choice">
                     <input type="checkbox" name="<?= /* @noEscape */ $permissionIdentifier ?>" id="<?= /* @noEscape */ $permissionIdentifier ?>" value="" title="<?= $block->escapeHtmlAttr(__($permission['label'])) ?>"<?php if (in_array($permissionIdentifier, $devicePermissions)) : ?> checked="checked"<?php endif; ?> class="checkbox">
