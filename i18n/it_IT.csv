@@ -3,3 +3,4 @@ Block,Blocco
 Allow,Permetti
 label,etichetta
 description,descrizione
+"Below settings work only when browser's settings allow sending push notifications.","Le seguenti impostazioni funzionano solo quando le impostazioni del browser permettono l'invio di notifiche push."

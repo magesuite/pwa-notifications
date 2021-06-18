@@ -3,3 +3,4 @@ Block,Blok
 Allow,Toestaan
 label,label
 description,omschrijving
+"Below settings work only when browser's settings allow sending push notifications.","Onderstaande instellingen werken alleen als de browserinstellingen het verzenden van pushmeldingen toestaan."

@@ -1,3 +1,4 @@
 Block,Bloc
 Allow,Autoriser
 label,libellé
+"Below settings work only when browser's settings allow sending push notifications.","Les paramètres ci-dessous ne fonctionnent que si les paramètres du navigateur autorisent l'envoi de notifications push."

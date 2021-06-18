@@ -8,3 +8,4 @@ description,Beschreibung
 "Notification enabled","Benachrichtigung aktiviert"
 "Yes, please","Ja, bitte"
 "No, thank you","Nein, danke"
+"Below settings work only when browser's settings allow sending push notifications.","Die folgenden Einstellungen funktionieren nur, wenn die Einstellungen des Browsers das Senden von Push-Benachrichtigungen zulassen."
