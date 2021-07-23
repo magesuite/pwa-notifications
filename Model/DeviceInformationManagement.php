@@ -50,21 +50,21 @@ class DeviceInformationManagement implements \MageSuite\PwaNotifications\Api\Dev
         return $device->getIdentifier();
     }
 
-    public function save(string $endpoint, \MageSuite\PwaNotifications\Api\Data\EncryptionKeysInterface $keys, string $oldEndpoint = '', array $permissions = [])
+    public function save(string $endpoint, \MageSuite\PwaNotifications\Api\Data\EncryptionKeysInterface $keys, string $oldEndpoint = '', array $permissions = []) //phpcs:ignore
     {
         $deviceIdFromSession = $this->sessionManager->getPwaDeviceId();
         $identifier = hash('sha256', $endpoint . $keys->getP256dh() . $keys->getAuth());
 
-        if(empty($oldEndpoint)) {
+        if (empty($oldEndpoint)) {
             $device = $this->getDeviceByEndpoint($endpoint);
 
-            if(!$device->getId() && $deviceIdFromSession > 0) {
+            if (!$device->getId() && $deviceIdFromSession > 0) {
                 $device->load($deviceIdFromSession, 'device_id');
             }
         } else {
             $device = $this->getDeviceByEndpoint($oldEndpoint);
 
-            if(!$device->getId() && $deviceIdFromSession > 0) {
+            if (!$device->getId() && $deviceIdFromSession > 0) {
                 $device->load($deviceIdFromSession, 'device_id');
             }
         }
@@ -77,8 +77,7 @@ class DeviceInformationManagement implements \MageSuite\PwaNotifications\Api\Dev
             $device->setIdentifier($identifier);
 
             $device->save();
-        }
-        else if(!empty($oldEndpoint) && $device->getId()) {
+        } elseif (!empty($oldEndpoint) && $device->getId()) {
             $this->logger->info(sprintf('Replacing endpoint and keys for device with id %s', $device->getId()));
 
             $device->setEndpoint($endpoint);
@@ -87,8 +86,7 @@ class DeviceInformationManagement implements \MageSuite\PwaNotifications\Api\Dev
             $device->setIdentifier($identifier);
 
             $device->save();
-        }
-        else if(!empty($oldEndpoint)) {
+        } elseif (!empty($oldEndpoint)) {
             $this->logger->error(sprintf('Tried to replace device endpoint, but device was not found based on old endpoint "%s".', $oldEndpoint));
         }
 

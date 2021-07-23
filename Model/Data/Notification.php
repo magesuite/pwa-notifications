@@ -173,7 +173,8 @@ class Notification implements \MageSuite\PwaNotifications\Api\Data\NotificationI
         ]);
     }
 
-    public function fromString($json) {
+    public function fromString($json)
+    {
         $data = json_decode($json, true);
 
         $this->setTitle($data['title'] ?? '');
