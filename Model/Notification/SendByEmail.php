@@ -2,7 +2,7 @@
 
 namespace MageSuite\PwaNotifications\Model\Notification;
 
-class SendByEmail
+class SendByEmail implements \MageSuite\PwaNotifications\Api\SendNotificationInterface
 {
     /**
      * @var \MageSuite\PwaNotifications\Model\Notification\PublishToQueue
@@ -30,23 +30,27 @@ class SendByEmail
     }
 
     /**
-     * @param string $email
-     * @param $message
+     * @param $email
+     * @param \MageSuite\PwaNotifications\Api\Data\NotificationInterface $notification
+     * @param array $requiredPermissions
+     * @return string
      */
-    public function execute($email, $notification, $requiredPermissions = [])
+    public function execute($email, \MageSuite\PwaNotifications\Api\Data\NotificationInterface $notification, $requiredPermissions = [])
     {
         $deviceIds = $this->emailToDeviceRepository->getDevicesByEmail($email);
 
         if (empty($deviceIds)) {
-            return;
+            return \MageSuite\PwaNotifications\Api\SendNotificationInterface::STATUS_MISSING_DEVICE_ID;
         }
 
         if (!$this->devicesHavePermissions->execute($deviceIds, $requiredPermissions)) {
-            return;
+            return \MageSuite\PwaNotifications\Api\SendNotificationInterface::STATUS_INSUFFICIENT_PERMISSIONS;
         }
 
         foreach ($deviceIds as $deviceId) {
             $this->publishToQueue->execute($deviceId, $notification);
         }
+
+        return \MageSuite\PwaNotifications\Api\SendNotificationInterface::STATUS_SENT;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace MageSuite\PwaNotifications\Model\Notification;
 
-class SendByCustomer
+class SendByCustomer implements \MageSuite\PwaNotifications\Api\SendNotificationInterface
 {
     /**
      * @var PublishToQueue
@@ -37,10 +37,12 @@ class SendByCustomer
     }
 
     /**
-     * @param \Magento\Customer\Model\Customer $customer
-     * @param $message
+     * @param $customer
+     * @param \MageSuite\PwaNotifications\Api\Data\NotificationInterface $notification
+     * @param array $requiredPermissions
+     * @return string
      */
-    public function execute($customer, $notification, $requiredPermissions = [])
+    public function execute($customer, \MageSuite\PwaNotifications\Api\Data\NotificationInterface $notification, $requiredPermissions = [])
     {
         $deviceIds = $this->customerToDeviceRepository->getDevicesByCustomerId($customer->getId());
         $deviceIds = array_merge($deviceIds, $this->emailToDeviceRepository->getDevicesByEmail($customer->getEmail()));
@@ -48,15 +50,17 @@ class SendByCustomer
         $deviceIds = array_unique($deviceIds);
 
         if (empty($deviceIds)) {
-            return;
+            return \MageSuite\PwaNotifications\Api\SendNotificationInterface::STATUS_MISSING_DEVICE_ID;
         }
 
         if (!$this->devicesHavePermissions->execute($deviceIds, $requiredPermissions)) {
-            return;
+            return \MageSuite\PwaNotifications\Api\SendNotificationInterface::STATUS_INSUFFICIENT_PERMISSIONS;
         }
 
         foreach ($deviceIds as $deviceId) {
             $this->publishToQueue->execute($deviceId, $notification);
         }
+
+        return \MageSuite\PwaNotifications\Api\SendNotificationInterface::STATUS_SENT;
     }
 }
