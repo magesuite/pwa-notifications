@@ -2,7 +2,7 @@
 
 namespace MageSuite\PwaNotifications\Model\Notification;
 
-class SendByOrder
+class SendByOrder implements \MageSuite\PwaNotifications\Api\SendNotificationInterface
 {
     /**
      * @var \MageSuite\PwaNotifications\Model\Notification\PublishToQueue
@@ -44,10 +44,12 @@ class SendByOrder
     }
 
     /**
-     * @param \Magento\Sales\Model\Order $order
-     * @param $message
+     * @param $order
+     * @param \MageSuite\PwaNotifications\Api\Data\NotificationInterface $notification
+     * @param array $requiredPermissions
+     * @return string
      */
-    public function execute($order, $notification, $requiredPermissions = [])
+    public function execute($order, \MageSuite\PwaNotifications\Api\Data\NotificationInterface $notification, $requiredPermissions = [])
     {
         $orderId = $order->getId();
         $email = $order->getCustomerEmail();
@@ -63,15 +65,17 @@ class SendByOrder
         $deviceIds = array_unique($deviceIds);
 
         if (empty($deviceIds)) {
-            return;
+            return \MageSuite\PwaNotifications\Api\SendNotificationInterface::STATUS_MISSING_DEVICE_ID;
         }
 
         if (!$this->devicesHavePermissions->execute($deviceIds, $requiredPermissions)) {
-            return;
+            return \MageSuite\PwaNotifications\Api\SendNotificationInterface::STATUS_INSUFFICIENT_PERMISSIONS;
         }
 
         foreach ($deviceIds as $deviceId) {
             $this->publishToQueue->execute($deviceId, $notification);
         }
+
+        return \MageSuite\PwaNotifications\Api\SendNotificationInterface::STATUS_SENT;
     }
 }

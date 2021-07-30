@@ -11,7 +11,7 @@ interface DeviceInformationManagementInterface
      * @param string $oldEndpoint
      * @return string
      */
-    public function save(
+    public function save( //phpcs:ignore
         string $endpoint,
         \MageSuite\PwaNotifications\Api\Data\EncryptionKeysInterface $keys,
         string $oldEndpoint = '',

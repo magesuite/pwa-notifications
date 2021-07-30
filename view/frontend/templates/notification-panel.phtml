@@ -1,5 +1,5 @@
 <div class="cs-push-notification__wrapper" data-bind="scope: 'push-notification'">
-    <div class="cs-push-notification <?= $block->getModifier() ?>" data-bind="css: {'_active': showPanel, _available: canDisplay}">
+    <div class="cs-push-notification <?= /* @noEscape */  $block->getModifier() ?>" data-bind="css: {'_active': showPanel, _available: canDisplay}">
         <div class="cs-push-notification__content" data-bind="css: modifier">
             <?= $block->getChildHtml('push.notification.hotspot.before'); ?>
             <?php if ($block->getRenderIcons()) { ?>

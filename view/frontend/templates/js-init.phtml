@@ -11,7 +11,7 @@ $jsConfig['applicationServerKey'] = $helper->getServerPublicKey();
                 "components": {
                     "push-notification": {
                         "component": "MageSuite_PwaNotifications/js/push-notification",
-                        "config": <?= json_encode($jsConfig) ?>
+                        "config": <?= /* @noEscape */  json_encode($jsConfig) ?>
                     }
                 }
             }
