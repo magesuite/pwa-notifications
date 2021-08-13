@@ -63,7 +63,7 @@ class Consumer implements \MageSuite\Queue\Api\Queue\HandlerInterface
         $webPush = $this->clientFactory->create();
         $subscription = $this->subscriptionFactory->create($device);
 
-        $webPush->sendNotification($subscription, (string)$notification);
+        $webPush->queueNotification($subscription, (string)$notification);
 
         /** @var \Minishlink\WebPush\MessageSentReport $report */
         foreach ($webPush->flush() as $report) {
