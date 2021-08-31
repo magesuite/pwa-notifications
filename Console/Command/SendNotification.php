@@ -70,7 +70,7 @@ class SendNotification extends \Symfony\Component\Console\Command\Command
             $notification->setBadge($input->getOption('badge'));
         }
 
-        $this->publishToQueueFactory()->create()->execute($deviceId, $notification);
+        $this->publishToQueueFactory->create()->execute($deviceId, $notification);
 
         $output->writeln('Message was published to queue');
     }

@@ -6,7 +6,7 @@
             <referenceBlock name="pwa.service-worker">
                 <block class="MageSuite\Pwa\Block\Data" name="pwa.service-worker.push-notifications" template="MageSuite_PwaNotifications::push.phtml">
                     <arguments>
-                        <argument xsi:type="object" name="view_model">MageSuite\Pwa\Model\Data\ViewModel</argument>
+                        <argument xsi:type="object" name="view_model">MageSuite\Pwa\ViewModel\Data</argument>
                     </arguments>
                 </block>
             </referenceBlock>

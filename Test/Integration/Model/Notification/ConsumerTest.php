@@ -70,7 +70,7 @@ class ConsumerTest extends AbstractNotificationTest
         $notification->setDeviceId($deviceId);
         $notification->setBody('pwa message');
 
-        $this->client->expects($this->once())->method('sendNotification')->with($this->subscription, $notification->__toString());
+        $this->client->expects($this->once())->method('queueNotification')->with($this->subscription, $notification->__toString());
         $this->client->expects($this->once())->method('flush')->willReturn($this->createGenerator([$messageSentReport]));
 
         $this->consumer->execute($notification->__toString());
@@ -83,7 +83,7 @@ class ConsumerTest extends AbstractNotificationTest
         $notification->setBody('pwa message');
 
         $this->logger->expects($this->once())->method('error')->with('Device with id 1000000000000 does not exist.');
-        $this->client->expects($this->exactly(0))->method('sendNotification');
+        $this->client->expects($this->exactly(0))->method('queueNotification');
         $this->client->expects($this->exactly(0))->method('flush');
 
         $this->consumer->execute($notification);
