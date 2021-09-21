@@ -3,3 +3,6 @@ Allow,Autoriser
 label,libellé
 "Below settings work only when browser's settings allow sending push notifications.","Les paramètres ci-dessous ne fonctionnent que si les paramètres du navigateur autorisent l'envoi de notifications push."
 "You will be notified about your order status.","Vous serez informé de l'état de votre commande."
+"Order status","Statut de la commande"
+"Advertisements","Publicités"
+"You will receive information about upcoming sales and promitions.","Vous recevrez des informations sur les ventes et les promotions à venir."
