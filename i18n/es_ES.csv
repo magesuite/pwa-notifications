@@ -3,3 +3,4 @@ Allow,Permitir
 label,Etiqueta
 description,descripción
 "Below settings work only when browser's settings allow sending push notifications.","Los siguientes ajustes sólo funcionan cuando la configuración del navegador permite el envío de notificaciones push."
+"You will be notified about your order status.","Se te notificará el estado del pedido."
