@@ -1,0 +1,14 @@
+Block,Bloc
+Allow,Autoriser
+label,libellé
+"Below settings work only when browser's settings allow sending push notifications.","Les paramètres ci-dessous ne fonctionnent que si les paramètres du navigateur autorisent l'envoi de notifications push."
+"You will be notified about your order status.","Vous serez informé de l'état de votre commande."
+"Order status","Statut de la commande"
+"Advertisements","Publicités"
+"You will receive information about upcoming sales and promitions.","Vous recevrez des informations sur les ventes et les promotions à venir."
+"Enable push notifications","Activer les notifications push"
+"Would you like to be informed about the delivery status of your order via push notifications?","Souhaitez-vous être informé du statut de livraison de votre commande par des notifications push ?"
+"Yes, please","Oui, s'il vous plaît."
+"No, thank you","Non, merci."
+"Push notifications settings","Réglages des notifications push"
+"Permission settings were saved correctly.","Les paramètres de permission ont été enregistrés correctement."
