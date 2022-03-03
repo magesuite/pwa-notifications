@@ -28,11 +28,12 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
         initialize: function () {
             this._super();
 
+            this.content = ko.observable({
+                header: '',
+                description: '',
+            });
+
             if (!this._canDisplayPanel()) {
-                this.content = ko.observable({
-                    header: '',
-                    description: '',
-                });
                 this.showActions(false);
                 this.subscriptionStatus('request');
                 this.canDisplay(false);
