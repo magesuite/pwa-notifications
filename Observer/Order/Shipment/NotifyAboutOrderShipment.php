@@ -14,12 +14,19 @@ class NotifyAboutOrderShipment implements \Magento\Framework\Event\ObserverInter
      */
     protected $notificationFactory;
 
+    /**
+     * @var \Magento\Store\Model\App\Emulation
+     */
+    protected $emulation;
+
     public function __construct(
         \MageSuite\PwaNotifications\Api\Data\NotificationInterfaceFactory $notificationFactory,
-        \MageSuite\PwaNotifications\Model\Notification\SendByOrder $sendByOrder
+        \MageSuite\PwaNotifications\Model\Notification\SendByOrder $sendByOrder,
+        \Magento\Store\Model\App\Emulation $emulation
     ) {
         $this->sendByOrder = $sendByOrder;
         $this->notificationFactory = $notificationFactory;
+        $this->emulation = $emulation;
     }
 
     /**
@@ -35,15 +42,20 @@ class NotifyAboutOrderShipment implements \Magento\Framework\Event\ObserverInter
 
         /** @var \Magento\Sales\Model\Order $order */
         $order = $shipment->getOrder();
+        $storeId = $order->getStoreId();
 
         if (!$order) {
             return;
         }
 
+        $this->emulation->startEnvironmentEmulation($storeId);
+
         $notification = $this->notificationFactory->create();
-        $notification->setTitle('Order status');
-        $notification->setBody(sprintf('Your order %s was shipped', $order->getIncrementId()));
+        $notification->setTitle(__('Order status'));
+        $notification->setBody(__('Your order %1 was shipped', $order->getIncrementId()));
 
         $this->sendByOrder->execute($order, $notification, ['order_status_notification']);
+
+        $this->emulation->stopEnvironmentEmulation();
     }
 }
