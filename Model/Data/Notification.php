@@ -69,7 +69,7 @@ class Notification implements \MageSuite\PwaNotifications\Api\Data\NotificationI
      */
     public function setBody($body)
     {
-        $this->body = $body;
+        $this->body = (string)$body;
         return $this;
     }
 
@@ -86,7 +86,8 @@ class Notification implements \MageSuite\PwaNotifications\Api\Data\NotificationI
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        $this->title = (string)$title;
+
         return $this;
     }
 
