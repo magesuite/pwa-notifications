@@ -64,4 +64,25 @@ class PermissionManagement implements \MageSuite\PwaNotifications\Api\Permission
 
         return true;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function get() {
+        $deviceId = $this->session->getDeviceId();
+
+        if ($deviceId == null) {
+            return [];
+        }
+
+        $devicesIds = array_merge([$deviceId], $this->getRelatedDevices->execute($deviceId));
+
+        $permissions = $this->permissionRepository->getDevicesPermissions($devicesIds);
+
+        if(empty($permissions)) {
+            return [];
+        }
+
+        return $permissions;
+    }
 }

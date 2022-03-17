@@ -27,4 +27,11 @@
             <resource ref="anonymous" />
         </resources>
     </route>
+
+    <route url="/V1/pwa/permission" method="GET">
+        <service class="MageSuite\PwaNotifications\Api\PermissionManagementInterface" method="get"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
 </routes>
