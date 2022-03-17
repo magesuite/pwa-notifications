@@ -15,4 +15,9 @@ interface PermissionManagementInterface
      * @return bool
      */
     public function remove($permission);
+
+    /**
+     * @return string[]
+     */
+    public function get();
 }
