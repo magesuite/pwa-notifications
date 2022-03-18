@@ -6,6 +6,7 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper impleme
 {
     const XML_PATH_SERVER_PUBLIC_KEY = 'pwa/notifications/server_public_key';
     const XML_PATH_SERVER_PRIVATE_KEY = 'pwa/notifications/server_private_key';
+    const XML_PATH_ORDER_NOTIFY_ABOUT_ORDER_SHIPMENT = 'pwa/order/notify_about_order_shipment';
 
     /**
      * @var \Magento\Framework\Encryption\EncryptorInterface
@@ -36,5 +37,10 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper impleme
     protected function getDecryptedValue($xmlPath)
     {
         return $this->encryptor->decrypt($this->scopeConfig->getValue($xmlPath));
+    }
+
+    public function shouldNotifyAboutOrderShipment()
+    {
+        return $this->scopeConfig->isSetFlag(self::XML_PATH_ORDER_NOTIFY_ABOUT_ORDER_SHIPMENT);
     }
 }

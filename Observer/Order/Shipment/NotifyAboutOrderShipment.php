@@ -5,6 +5,11 @@ namespace MageSuite\PwaNotifications\Observer\Order\Shipment;
 class NotifyAboutOrderShipment implements \Magento\Framework\Event\ObserverInterface
 {
     /**
+     * @var \MageSuite\PwaNotifications\Helper\Configuration
+     */
+    protected $configuration;
+
+    /**
      * @var \MageSuite\PwaNotifications\Model\Notification\SendByOrder
      */
     protected $sendByOrder;
@@ -20,10 +25,12 @@ class NotifyAboutOrderShipment implements \Magento\Framework\Event\ObserverInter
     protected $emulation;
 
     public function __construct(
+        \MageSuite\PwaNotifications\Helper\Configuration $configuration,
         \MageSuite\PwaNotifications\Api\Data\NotificationInterfaceFactory $notificationFactory,
         \MageSuite\PwaNotifications\Model\Notification\SendByOrder $sendByOrder,
         \Magento\Store\Model\App\Emulation $emulation
     ) {
+        $this->configuration = $configuration;
         $this->sendByOrder = $sendByOrder;
         $this->notificationFactory = $notificationFactory;
         $this->emulation = $emulation;
@@ -34,6 +41,10 @@ class NotifyAboutOrderShipment implements \Magento\Framework\Event\ObserverInter
      */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
+        if (!$this->configuration->shouldNotifyAboutOrderShipment()) {
+            return;
+        }
+
         $shipment = $observer->getEvent()->getShipment();
 
         if (!$shipment) {
