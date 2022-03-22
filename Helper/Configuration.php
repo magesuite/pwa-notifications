@@ -43,15 +43,16 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper impleme
     {
         $permissionGroup = $this->getPermissionGroup();
 
-        if (!isset($permissionGroup[$permissionCode])) {
+        if (!$permissionGroup->hasData($permissionCode)) {
             return true;
         }
 
-        return (bool)$permissionGroup[$permissionCode];
+        return (bool)$permissionGroup->getData($permissionCode);
     }
 
     protected function getPermissionGroup()
     {
-        return $this->scopeConfig->getValue(self::XML_PATH_PERMISSION_GROUP, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $permissionGroup = $this->scopeConfig->getValue(self::XML_PATH_PERMISSION_GROUP, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        return new \Magento\Framework\DataObject($permissionGroup);
     }
 }
