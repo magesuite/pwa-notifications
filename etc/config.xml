@@ -2,9 +2,10 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <pwa>
-            <order>
-                <notify_about_order_shipment>1</notify_about_order_shipment>
-            </order>
+            <permission>
+                <order_status_notification>1</order_status_notification>
+                <advertisement>1</advertisement>
+            </permission>
         </pwa>
     </default>
 </config>

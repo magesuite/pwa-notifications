@@ -6,7 +6,7 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper impleme
 {
     const XML_PATH_SERVER_PUBLIC_KEY = 'pwa/notifications/server_public_key';
     const XML_PATH_SERVER_PRIVATE_KEY = 'pwa/notifications/server_private_key';
-    const XML_PATH_ORDER_NOTIFY_ABOUT_ORDER_SHIPMENT = 'pwa/order/notify_about_order_shipment';
+    const XML_PATH_PERMISSION_GROUP = 'pwa/permission';
 
     /**
      * @var \Magento\Framework\Encryption\EncryptorInterface
@@ -39,8 +39,19 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper impleme
         return $this->encryptor->decrypt($this->scopeConfig->getValue($xmlPath));
     }
 
-    public function shouldNotifyAboutOrderShipment()
+    public function isPermissionAvailable($permissionCode)
     {
-        return $this->scopeConfig->isSetFlag(self::XML_PATH_ORDER_NOTIFY_ABOUT_ORDER_SHIPMENT);
+        $permissionGroup = $this->getPermissionGroup();
+
+        if (!isset($permissionGroup[$permissionCode])) {
+            return true;
+        }
+
+        return (bool)$permissionGroup[$permissionCode];
+    }
+
+    protected function getPermissionGroup()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_PERMISSION_GROUP, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
 }
