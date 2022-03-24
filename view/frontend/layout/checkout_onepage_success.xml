@@ -70,7 +70,7 @@
         </referenceContainer>
 
         <referenceContainer name="before.body.end">
-            <block name="push.notification.shipping" template="MageSuite_PwaNotifications::js-init.phtml" ifconfig="pwa/general/is_enabled">
+            <block name="push.notification.shipping" template="MageSuite_PwaNotifications::js-init.phtml" ifconfig="pwa/permission/order_status_notification">
                 <arguments>
                     <argument name="configuration_helper" xsi:type="object">MageSuite\PwaNotifications\Helper\Configuration</argument>
                     <argument name="js_config" xsi:type="array">

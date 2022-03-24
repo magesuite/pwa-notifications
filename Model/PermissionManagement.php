@@ -68,7 +68,8 @@ class PermissionManagement implements \MageSuite\PwaNotifications\Api\Permission
     /**
      * @inheritDoc
      */
-    public function get() {
+    public function get()
+    {
         $deviceId = $this->session->getDeviceId();
 
         if ($deviceId == null) {
@@ -79,7 +80,7 @@ class PermissionManagement implements \MageSuite\PwaNotifications\Api\Permission
 
         $permissions = $this->permissionRepository->getDevicesPermissions($devicesIds);
 
-        if(empty($permissions)) {
+        if (empty($permissions)) {
             return [];
         }
 

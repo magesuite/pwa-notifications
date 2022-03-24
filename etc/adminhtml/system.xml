@@ -2,10 +2,14 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
         <section id="pwa">
-            <group id="order" translate="label" sortOrder="210" showInDefault="1" showInWebsite="0" showInStore="0">
-                <label>Order</label>
-                <field id="notify_about_order_shipment" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Notify about order shipment</label>
+            <group id="permission" translate="label" sortOrder="210" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Permissions</label>
+                <field id="order_status_notification" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Order status notification</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="advertisement" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Advertisement</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
