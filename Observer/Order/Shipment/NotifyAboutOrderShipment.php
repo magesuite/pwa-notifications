@@ -41,7 +41,7 @@ class NotifyAboutOrderShipment implements \Magento\Framework\Event\ObserverInter
      */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
-        if (!$this->configuration->shouldNotifyAboutOrderShipment()) {
+        if (!$this->configuration->isPermissionAvailable('order_status_notification')) {
             return;
         }
 
