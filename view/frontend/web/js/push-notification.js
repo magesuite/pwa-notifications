@@ -66,6 +66,7 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
             $('body').on('bis:modalclosed bis:formclosed', function() {
                 this._setInitialPanelContent();
             }.bind(this));
+            console.log(this);
 
             return this;
         },
@@ -284,7 +285,16 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
                 if (this.alwaysAsk) {
                     this._request();
                 } else {
-                    this._subscribe(true);
+                    $.get({
+                        url: url.build('rest/V1/pwa/permission'),
+                        contentType: 'application/json'
+                    }).success(function (acceptedPermissions) {
+                        if (acceptedPermissions.includes(this.notificationType)) {
+                            this._subscribe(true);
+                        } else {
+                            this._request();
+                        }
+                    });
                 }
             } else if (Notification.permission === 'denied') {
                 this._onRejectedByBrowser();
