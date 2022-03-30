@@ -277,6 +277,8 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
          * Basically it checks current permission state and adjusts content of the panel.
          */
         _setInitialPanelContent: function () {
+            var that = this;
+
             if (Notification.permission === 'granted') {
                 if (!this.showPanelIfPermissionAlwaysGranted) {
                     this.showOnInit = false;
@@ -290,9 +292,9 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
                         contentType: 'application/json'
                     }).success(function (acceptedPermissions) {
                         if (acceptedPermissions.includes(this.notificationType)) {
-                            this._subscribe(true);
+                            that._subscribe(true);
                         } else {
-                            this._request();
+                            that._request();
                         }
                     });
                 }
