@@ -302,7 +302,7 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
                         } else {
                             this._request();
                         }
-                    }).bind(this);
+                    }.bind(this));
                 }
             } else if (Notification.permission === 'denied') {
                 this._onRejectedByBrowser();
