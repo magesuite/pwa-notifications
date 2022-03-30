@@ -66,7 +66,6 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
             $('body').on('bis:modalclosed bis:formclosed', function() {
                 this._setInitialPanelContent();
             }.bind(this));
-            console.log(this);
 
             return this;
         },
@@ -88,10 +87,17 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
          * This method is directly bound to the click event of the "Yes" button.
          * Set this._isRequestedByClient to true and initialize subscription process
          * this._isRequestedByClient informs whether it was user that initializes subscription process. The other option is browser settings that can initialize process because of already granted permissions.
+         * There is also new permission post request send
          */
         onAccept: function () {
             this._isRequestedByClient = true;
             this._subscribe(false);
+
+            $.post({
+                url: url.build('rest/V1/pwa/permission'),
+                data: JSON.stringify({"permission": this.notificationType}),
+                contentType: 'application/json'
+            })
         },
 
         /**
@@ -292,11 +298,11 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
                         contentType: 'application/json'
                     }).success(function (acceptedPermissions) {
                         if (acceptedPermissions.includes(this.notificationType)) {
-                            that._subscribe(true);
+                            this._subscribe(true);
                         } else {
-                            that._request();
+                            this._request();
                         }
-                    });
+                    }).bind(this);
                 }
             } else if (Notification.permission === 'denied') {
                 this._onRejectedByBrowser();
