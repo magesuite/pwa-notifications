@@ -1,15 +1,15 @@
-Notifications,Notificaciones
-Allow,Permitir
-label,Etiqueta
-description,descripción
-"Below settings work only when browser's settings allow sending push notifications.","Los siguientes ajustes sólo funcionan cuando la configuración del navegador permite el envío de notificaciones push."
-"You will be notified about your order status.","Se te notificará el estado del pedido."
-"Order status","Estado del pedido"
 "Advertisements","Publicidad"
-"You will receive information about upcoming sales and promitions.","Recibirás información sobre las próximas rebajas y promociones."
+"Allow","Permitir"
+"Below settings work only when browser's settings allow sending push notifications.","Los siguientes ajustes sólo funcionan cuando la configuración del navegador permite el envío de notificaciones push."
+"description","descripción"
 "Enable push notifications","Habilitar notificaciones push"
+"label","Etiqueta"
+"No, thank you","No, gracias."
+"Notifications","Notificaciones"
+"Order status","Estado del pedido"
+"Permission settings were saved correctly.","La configuración de los permisos se ha guardado correctamente."
+"Push notifications settings","Configuración de las notificaciones push"
 "Would you like to be informed about the delivery status of your order via push notifications?","¿Quieres estar informado del estado de la entrega de tu pedido mediante notificaciones push?"
 "Yes, please","Sí, por favor."
-"No, thank you","No, gracias."
-"Push notifications settings","Configuración de las notificaciones push"
-"Permission settings were saved correctly.","La configuración de los permisos se ha guardado correctamente."
+"You will be notified about your order status.","Se te notificará el estado del pedido."
+"You will receive information about upcoming sales and promitions.","Recibirás información sobre las próximas rebajas y promociones."
