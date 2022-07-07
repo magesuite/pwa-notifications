@@ -2,66 +2,75 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="main">
-            <block name="push.notification.main" template="MageSuite_PwaNotifications::notification-panel.phtml" before="-" ifconfig="pwa/general/is_enabled">
+            <block name="notification.panel.main" template="MageSuite_PwaNotifications::notification-panel.phtml" after="pwa.a2hs.guide" ifconfig="pwa/general/is_enabled">
                 <arguments>
-                    <argument name="modifier" xsi:type="string">cs-push-notification--shipping</argument>
+                    <argument name="modifier" xsi:type="string">cs-notification-panel--slim</argument>
                     <argument name="render_icons" xsi:type="boolean">true</argument>
                     <argument name="button_accept_text" xsi:type="string" translate="true">Yes, please</argument>
                     <argument name="button_decline_text" xsi:type="string" translate="true">No, thank you</argument>
                     <argument name="show_decline_button" xsi:type="boolean">true</argument>
+                    <argument name="is_description_in_collapse" xsi:type="boolean">true</argument>
                 </arguments>
-                <block class="MageSuite\ThemeHelpers\Block\Icon" name="push.notification.icon.request">
+                <block class="MageSuite\ThemeHelpers\Block\Icon" name="notification.panel.icon.request">
                     <arguments>
-                        <argument name="icon_url" xsi:type="string">images/icons/push-notification/icon_notification-request.svg</argument>
-                        <argument name="css_class" xsi:type="string">cs-push-notification__icon cs-push-notification__icon--animate cs-push-notification__icon--request</argument>
+                        <argument name="icon_url" xsi:type="string">images/icons/notification-panel/icon_notification-request.svg</argument>
+                        <argument name="css_class" xsi:type="string">cs-notification-panel__icon cs-notification-panel__icon--animate cs-notification-panel__icon--request</argument>
                         <argument name="inlined" xsi:type="boolean">true</argument>
                         <argument name="lazy_loaded" xsi:type="boolean">false</argument>
                     </arguments>
                 </block>
-                <block class="MageSuite\ThemeHelpers\Block\Icon" name="push.notification.icon.pending">
+                <block class="MageSuite\ThemeHelpers\Block\Icon" name="notification.panel.icon.pending">
                     <arguments>
-                        <argument name="icon_url" xsi:type="string">images/icons/push-notification/icon_notification-pending.svg</argument>
-                        <argument name="css_class" xsi:type="string">cs-push-notification__icon cs-push-notification__icon--animate cs-push-notification__icon--pending</argument>
+                        <argument name="icon_url" xsi:type="string">images/icons/notification-panel/icon_notification-pending.svg</argument>
+                        <argument name="css_class" xsi:type="string">cs-notification-panel__icon cs-notification-panel__icon--animate cs-notification-panel__icon--pending</argument>
                         <argument name="inlined" xsi:type="boolean">true</argument>
                         <argument name="lazy_loaded" xsi:type="boolean">false</argument>
                     </arguments>
                 </block>
-                <block class="MageSuite\ThemeHelpers\Block\Icon" name="push.notification.icon.enabled">
+                <block class="MageSuite\ThemeHelpers\Block\Icon" name="notification.panel.icon.enabled">
                     <arguments>
-                        <argument name="icon_url" xsi:type="string">images/icons/push-notification/icon_notification-enabled.svg</argument>
-                        <argument name="css_class" xsi:type="string">cs-push-notification__icon cs-push-notification__icon--animate cs-push-notification__icon--enabled</argument>
+                        <argument name="icon_url" xsi:type="string">images/icons/notification-panel/icon_notification-enabled.svg</argument>
+                        <argument name="css_class" xsi:type="string">cs-notification-panel__icon cs-notification-panel__icon--animate cs-notification-panel__icon--enabled</argument>
                         <argument name="inlined" xsi:type="boolean">true</argument>
                         <argument name="lazy_loaded" xsi:type="boolean">false</argument>
                     </arguments>
                 </block>
-                <block class="MageSuite\ThemeHelpers\Block\Icon" name="push.notification.icon.rejected">
+                <block class="MageSuite\ThemeHelpers\Block\Icon" name="notification.panel.icon.rejected">
                     <arguments>
-                        <argument name="icon_url" xsi:type="string">images/icons/push-notification/icon_notification-rejected.svg</argument>
-                        <argument name="css_class" xsi:type="string">cs-push-notification__icon cs-push-notification__icon--rejected</argument>
+                        <argument name="icon_url" xsi:type="string">images/icons/notification-panel/icon_notification-rejected.svg</argument>
+                        <argument name="css_class" xsi:type="string">cs-notification-panel__icon cs-notification-panel__icon--rejected</argument>
                         <argument name="inlined" xsi:type="boolean">true</argument>
                         <argument name="lazy_loaded" xsi:type="boolean">false</argument>
                     </arguments>
                 </block>
-                <block class="MageSuite\ThemeHelpers\Block\Icon" name="push.notification.close.icon">
+                <block class="MageSuite\ThemeHelpers\Block\Icon" name="notification.panel.close.icon">
                     <arguments>
-                        <argument name="icon_url" xsi:type="string">images/icons/push-notification/icon_close.svg</argument>
-                        <argument name="css_class" xsi:type="string">cs-push-notification__close-icon</argument>
+                        <argument name="icon_url" xsi:type="string">images/icons/notification-panel/icon_close.svg</argument>
+                        <argument name="css_class" xsi:type="string">cs-notification-panel__close-icon</argument>
                         <argument name="inlined" xsi:type="boolean">true</argument>
                         <argument name="lazy_loaded" xsi:type="boolean">false</argument>
                     </arguments>
                 </block>
-                <block class="MageSuite\ThemeHelpers\Block\Icon" name="push.notification.button.accept.icon">
+                <block class="MageSuite\ThemeHelpers\Block\Icon" name="notification.panel.button.accept.icon">
                     <arguments>
                         <argument name="icon_url" xsi:type="string">images/icons/button/icon-default-primary.svg</argument>
-                        <argument name="css_class" xsi:type="string">cs-push-notification__button-icon</argument>
+                        <argument name="css_class" xsi:type="string">cs-notification-panel__button-icon</argument>
                         <argument name="inlined" xsi:type="boolean">true</argument>
                         <argument name="lazy_loaded" xsi:type="boolean">false</argument>
                     </arguments>
                 </block>
-                <block class="MageSuite\ThemeHelpers\Block\Icon" name="push.notification.button.decline.icon">
+                <block class="MageSuite\ThemeHelpers\Block\Icon" name="notification.panel.button.decline.icon">
                     <arguments>
                         <argument name="icon_url" xsi:type="string">images/icons/button/icon-default-secondary.svg</argument>
-                        <argument name="css_class" xsi:type="string">cs-push-notification__button-icon</argument>
+                        <argument name="css_class" xsi:type="string">cs-notification-panel__button-icon</argument>
+                        <argument name="inlined" xsi:type="boolean">true</argument>
+                        <argument name="lazy_loaded" xsi:type="boolean">false</argument>
+                    </arguments>
+                </block>
+                <block class="MageSuite\ThemeHelpers\Block\Icon" name="notification.panel.next.icon">
+                    <arguments>
+                        <argument name="icon_url" xsi:type="string">images/icons/notification-panel/next.svg</argument>
+                        <argument name="css_class" xsi:type="string">cs-notification-panel__next-icon</argument>
                         <argument name="inlined" xsi:type="boolean">true</argument>
                         <argument name="lazy_loaded" xsi:type="boolean">false</argument>
                     </arguments>
@@ -75,6 +84,7 @@
                     <argument name="configuration_helper" xsi:type="object">MageSuite\PwaNotifications\Helper\Configuration</argument>
                     <argument name="js_config" xsi:type="array">
                         <item name="notificationType" xsi:type="string">order_status_notification</item>
+                        <item name="visualVariant" xsi:type="string">slim</item>
                         <item name="showOnInit" xsi:type="boolean">true</item>
                         <item name="panelHeaders" xsi:type="array">
                             <item name="request" xsi:type="string" translate="true">Enable push notifications</item>

@@ -15,6 +15,7 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
             showPanelIfPermissionAlwaysGranted: false,
             showOnInit: true,
             subscribedCallback: undefined,
+            visualVariant: 'standard'
         },
 
         /**
@@ -60,7 +61,14 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
             this._setInitialPanelContent();
 
             if (this.showOnInit) {
-                this.showPanel(true);
+                if (this.visualVariant === 'slim') {
+                    // Set Timeout to wait till all scripts are download and executed in order to make animation smooth
+                    setTimeout(function() {
+                        this.showPanel(true);
+                    }.bind(this), 2000)
+                } else {
+                    this.showPanel(true); 
+                }
             }
 
             $('body').on('bis:modalclosed bis:formclosed', function() {
@@ -78,6 +86,7 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
                 'showActions',
                 'subscriptionStatus',
                 'modifier',
+                'isCollapseOpen',
             ]);
 
             return this;
@@ -101,10 +110,29 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
         },
 
         /**
+         * Send information about declined notificationType and hide panel
+         */
+        declinePermission: function () {
+            $.ajax({
+                url: url.build('rest/V1/pwa/permission/' + this.notificationType),
+                type: 'DELETE'
+            });
+
+            this.closePanel();
+        },
+
+        /**
          * Hides component
          */
         closePanel: function () {
             this.showPanel(false);
+        },
+
+        /**
+         * Toggle isCollapseOpen
+         */
+        toggleCollapse: function () {
+            this.isCollapseOpen(!this.isCollapseOpen());
         },
 
         /**
@@ -115,6 +143,7 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
          * At the end we must check if required APIs are supported by the browser at all.
          */
         _canDisplayPanel: function () {
+            return true;
             if (!this.applicationServerKey) {
                 throw new Error(
                     'Cannot initialize notification panel, "applicationServerKey" option is not provided.'
@@ -320,7 +349,15 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
             });
             this.showActions(true);
             this.subscriptionStatus('request');
-            this.showPanel(true);
+
+            if (this.visualVariant === 'slim') {
+                // Set Timeout to wait till all scripts are download and executed in order to make animation smooth
+                setTimeout(function() {
+                    this.showPanel(true);
+                }.bind(this), 2000)
+            } else {
+                this.showPanel(true); 
+            }
         },
 
         /**
