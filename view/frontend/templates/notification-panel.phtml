@@ -41,7 +41,7 @@
                     <span class="cs-notification-panel__message-description" data-bind="text: content().description" data-role="content"></span>
                 </div>
             </div>
-            <div class="cs-notification-panel__actions" data-bind="visible: showActions<?php if ($block->getIsDescriptionInCollapse()) { ?>, css:{'_active': isCollapseOpen}<?php } ?>">
+            <div class="cs-notification-panel__actions<?php if (!$block->getIsDescriptionInCollapse()) { ?> _active<?php } ?>" data-bind="visible: showActions<?php if ($block->getIsDescriptionInCollapse()) { ?>, css:{'_active': isCollapseOpen}<?php } ?>">
                 <button class="cs-notification-panel__button cs-notification-panel__button--accept" data-bind="click: onAccept">
                     <span class="cs-notification-panel__button-span"><?= /* @noEscape */ $block->getButtonAcceptText(); ?></span>
                     <?= $block->getChildHtml('notification.panel.button.accept.icon'); ?>
@@ -53,7 +53,7 @@
                     </button>
                 <?php } ?>
             </div>
-            <a href="#" class="cs-notification-panel__close" data-bind="click: closePanel<?php if ($block->getIsDescriptionInCollapse()) { ?>, css: {'_active': isCollapseOpen}<?php } ?>">
+            <a href="#" class="cs-notification-panel__close <?php if (!$block->getIsDescriptionInCollapse()) { ?> _active<?php } ?>" data-bind="click: closePanel<?php if ($block->getIsDescriptionInCollapse()) { ?>, css: {'_active': isCollapseOpen}<?php } ?>">
                 <?= $block->getChildHtml('notification.panel.close.icon'); ?>
             </a>
         </div>
