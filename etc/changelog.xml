@@ -8,7 +8,7 @@
                     <description>
                         Together with rebuy functionality, a new design for push notification panel on the success page was introduced.
                         In order to make naming less confusing, new name for push notification information element (on success page) was introduced:
-                        - Name of the component/ html/css classes / variables before: push-notification, push-notification, $push-notification 
+                        - Name of the component/ html/css classes / variables before: push-notification, push-notification, $push-notification
                         - Name of the component after: notification-panel, cs-notification-panel, $notification-panel
                         Also cs-push-notification--shipping class was replaced with more neutral cs-notification-panel--slim
                         There is possibility now to place description and action buttons in collapse (default option)
@@ -19,6 +19,12 @@
                 <entry>
                     <type>FIX</type>
                     <overview>Adjust template for scenario without description in collapse</overview>
+                </entry>
+            </tag>
+            <tag version="1.4.3" date="2022-08-12">
+                <entry>
+                    <type>FIX</type>
+                    <overview>Remove early return which caused the panel to always be displayed</overview>
                 </entry>
             </tag>
         </changelog>
