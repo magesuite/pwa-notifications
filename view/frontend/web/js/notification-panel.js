@@ -67,7 +67,7 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
                         this.showPanel(true);
                     }.bind(this), 2000)
                 } else {
-                    this.showPanel(true); 
+                    this.showPanel(true);
                 }
             }
 
@@ -143,7 +143,6 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
          * At the end we must check if required APIs are supported by the browser at all.
          */
         _canDisplayPanel: function () {
-            return true;
             if (!this.applicationServerKey) {
                 throw new Error(
                     'Cannot initialize notification panel, "applicationServerKey" option is not provided.'
@@ -356,7 +355,7 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
                     this.showPanel(true);
                 }.bind(this), 2000)
             } else {
-                this.showPanel(true); 
+                this.showPanel(true);
             }
         },
 
