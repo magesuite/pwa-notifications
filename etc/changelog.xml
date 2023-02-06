@@ -27,6 +27,13 @@
                     <overview>Remove early return which caused the panel to always be displayed</overview>
                 </entry>
             </tag>
+            <tag version="1.4.4" date="2024-02-05">
+                <entry>
+                    <type>FIX</type>
+                    <overview>Add handler filter for message collection in integration test</overview>
+                    <ticket_id>MGS-5065</ticket_id>
+                </entry>
+            </tag>
         </changelog>
     </module>
 </config>
