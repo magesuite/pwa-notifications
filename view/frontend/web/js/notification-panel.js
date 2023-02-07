@@ -149,6 +149,12 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
          * At the end we must check if required APIs are supported by the browser at all.
          */
         _canDisplayPanel: function () {
+            if (!this.applicationServerKey) {
+                throw new Error(
+                    'Cannot initialize notification panel, "applicationServerKey" option is not provided.'
+                );
+            }
+
             if (!this.notificationType) {
                 throw new Error(
                     'Cannot initialize notification panel, "notificationType" option is not provided.'
