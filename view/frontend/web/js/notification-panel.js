@@ -16,7 +16,7 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
             showOnInit: true,
             subscribedCallback: undefined,
             visualVariant: 'standard',
-            showAgainTime: 7 * 86400000 // Time when notification panel will remain hidden after clicking on decline button 
+            showAgainTime: 0 // Time when notification panel will remain hidden after clicking on decline button f.e 7 * 86400000 for 7 days
         },
 
         /**
