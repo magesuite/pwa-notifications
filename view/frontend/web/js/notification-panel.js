@@ -15,7 +15,8 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
             showPanelIfPermissionAlwaysGranted: false,
             showOnInit: true,
             subscribedCallback: undefined,
-            visualVariant: 'standard'
+            visualVariant: 'standard',
+            showAgainTime: 0 // Time when notification panel will remain hidden after clicking on decline button f.e 7 * 86400000 for 7 days
         },
 
         /**
@@ -118,6 +119,11 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
                 type: 'DELETE'
             });
 
+            localStorage.setItem(
+                'magesuite-notification-declined-' + this.notificationType, 
+                Date.now()
+            );
+
             this.closePanel();
         },
 
@@ -153,6 +159,14 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
                 throw new Error(
                     'Cannot initialize notification panel, "notificationType" option is not provided.'
                 );
+            }
+
+            const lastDeclinedTime = localStorage.getItem(
+                'magesuite-notification-declined-' + this.notificationType
+            );
+
+            if (lastDeclinedTime && new Date().getTime() < parseInt(lastDeclinedTime, 10) + this.showAgainTime) {
+                return false;
             }
 
             return (
