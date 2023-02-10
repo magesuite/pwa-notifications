@@ -1,6 +1,7 @@
 stages:
   - build
   - codesniffer
+
 include:
     - project: 'mageops/gitlab-ci-templates'
       ref: master
