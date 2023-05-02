@@ -120,7 +120,7 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
             });
 
             localStorage.setItem(
-                'magesuite-notification-declined-' + this.notificationType, 
+                'magesuite-notification-declined-' + this.notificationType,
                 Date.now()
             );
 
@@ -336,7 +336,7 @@ define(['jquery', 'ko', 'uiComponent', 'mage/url', 'mage/cookies'], function (
                     $.get({
                         url: url.build('rest/V1/pwa/permission'),
                         contentType: 'application/json'
-                    }).success(function (acceptedPermissions) {
+                    }).done(function (acceptedPermissions) {
                         if (acceptedPermissions.includes(this.notificationType)) {
                             this._subscribe(true);
                         } else {
