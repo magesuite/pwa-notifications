@@ -6,9 +6,8 @@
         "OSL-3.0"
     ],
     "require": {
-        "minishlink/web-push": "^6.0",
-        "creativestyle/magesuite-queue": "^1.0.0",
-        "spomky-labs/base64url": "^1.0|^2.0"
+        "minishlink/web-push": "^8.0",
+        "creativestyle/magesuite-queue": "^1.0.0"
     },
     "autoload": {
         "files": [
