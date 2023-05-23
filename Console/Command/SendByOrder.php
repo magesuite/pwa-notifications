@@ -67,5 +67,7 @@ class SendByOrder extends \Symfony\Component\Console\Command\Command
 
             $output->writeln('Message was sent');
         });
+
+        return \Magento\Framework\Console\Cli::RETURN_SUCCESS;
     }
 }

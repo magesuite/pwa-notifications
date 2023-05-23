@@ -73,5 +73,7 @@ class SendNotification extends \Symfony\Component\Console\Command\Command
         $this->publishToQueueFactory->create()->execute($deviceId, $notification);
 
         $output->writeln('Message was published to queue');
+
+        return \Magento\Framework\Console\Cli::RETURN_SUCCESS;
     }
 }
