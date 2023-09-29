@@ -7,10 +7,33 @@
                 <field id="order_status_notification" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Order status notification</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="pwa/general/is_enabled">1</field>
+                    </depends>
                 </field>
                 <field id="advertisement" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Advertisement</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="pwa/general/is_enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="notifications" translate="label" sortOrder="220" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Notifications</label>
+                <field id="success_page_notification_panel" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show success page notification panel</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="pwa/general/is_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="user_area_notification_link" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Include link to notification management subpage in User Area</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="pwa/general/is_enabled">1</field>
+                    </depends>
                 </field>
             </group>
         </section>
