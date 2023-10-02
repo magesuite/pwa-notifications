@@ -1,62 +1,70 @@
-<div class="cs-notification-panel__wrapper" data-bind="scope: 'notification-panel'">
-    <div class="cs-notification-panel <?= /* @noEscape */  $block->getModifier() ?>" data-bind="css: {'_active': showPanel, _available: canDisplay}">
-        <div class="cs-notification-panel__content" data-bind="css: modifier">
-            <?= $block->getChildHtml('notification.panel.hotspot.before'); ?>
-            <?php if ($block->getRenderIcons()) { ?>
-                <div class="cs-notification-panel__icons">
-                    <div class="cs-notification-panel__icon-wrapper cs-notification-panel__icon-wrapper--request" data-bind="visible: subscriptionStatus() === 'request'">
-                        <?= $block->getChildHtml('notification.panel.icon.request'); ?>
+<?php
+/** @var \MageSuite\Pwa\ViewModel\Data $viewModel */
+$viewModel = $block->getViewModel();
+$configuration = $viewModel->getConfiguration();
+$isPwaEnabled = $configuration->isEnabled();
+?>
+<?php if ($isPwaEnabled) : ?>
+    <div class="cs-notification-panel__wrapper" data-bind="scope: 'notification-panel'">
+        <div class="cs-notification-panel <?= /* @noEscape */  $block->getModifier() ?>" data-bind="css: {'_active': showPanel, _available: canDisplay}">
+            <div class="cs-notification-panel__content" data-bind="css: modifier">
+                <?= $block->getChildHtml('notification.panel.hotspot.before'); ?>
+                <?php if ($block->getRenderIcons()) { ?>
+                    <div class="cs-notification-panel__icons">
+                        <div class="cs-notification-panel__icon-wrapper cs-notification-panel__icon-wrapper--request" data-bind="visible: subscriptionStatus() === 'request'">
+                            <?= $block->getChildHtml('notification.panel.icon.request'); ?>
+                        </div>
+                        <div class="cs-notification-panel__icon-wrapper cs-notification-panel__icon-wrapper--pending" data-bind="visible: subscriptionStatus() === 'pending'">
+                            <?= $block->getChildHtml('notification.panel.icon.pending'); ?>
+                        </div>
+                        <div class="cs-notification-panel__icon-wrapper cs-notification-panel__icon-wrapper--granted" data-bind="visible: subscriptionStatus() === 'granted'">
+                            <?= $block->getChildHtml('notification.panel.icon.enabled'); ?>
+                        </div>
+                        <div class="cs-notification-panel__icon-wrapper cs-notification-panel__icon-wrapper--rejected" data-bind="visible: subscriptionStatus() === 'rejected'">
+                            <?= $block->getChildHtml('notification.panel.icon.rejected'); ?>
+                        </div>
                     </div>
-                    <div class="cs-notification-panel__icon-wrapper cs-notification-panel__icon-wrapper--pending" data-bind="visible: subscriptionStatus() === 'pending'">
-                        <?= $block->getChildHtml('notification.panel.icon.pending'); ?>
-                    </div>
-                    <div class="cs-notification-panel__icon-wrapper cs-notification-panel__icon-wrapper--granted" data-bind="visible: subscriptionStatus() === 'granted'">
-                        <?= $block->getChildHtml('notification.panel.icon.enabled'); ?>
-                    </div>
-                    <div class="cs-notification-panel__icon-wrapper cs-notification-panel__icon-wrapper--rejected" data-bind="visible: subscriptionStatus() === 'rejected'">
-                        <?= $block->getChildHtml('notification.panel.icon.rejected'); ?>
-                    </div>
-                </div>
-            <?php } ?>
-            <div class="cs-notification-panel__message-wrapper">
-                <div
-                    class="cs-notification-panel__message"
-                    <?php if ($block->getIsDescriptionInCollapse()) { ?>
-                        data-bind="mageInit: {
-                            'collapsible':{
-                                'mediaQueryScope':'(max-width: 767px)',
-                                'animate': true,
-                            }}"
-                    <?php } ?>
-                >
-                    <div data-role="title">
-                        <span class="cs-notification-panel__message-title" data-bind="text: content().header, click:toggleCollapse" ></span>
-                        <?php if ($block->getIsDescriptionInCollapse()) { ?>
-                            <a href="#" class="cs-notification-panel__next" data-bind="click: toggleCollapse, css: {'_hidden': isCollapseOpen}">
-                                <?= $block->getChildHtml('notification.panel.next.icon'); ?>
-                            </a>
-                        <?php } ?>
-                    </div>
-
-                    <span class="cs-notification-panel__message-description" data-bind="text: content().description" data-role="content"></span>
-                </div>
-            </div>
-            <div class="cs-notification-panel__actions<?php if (!$block->getIsDescriptionInCollapse()) { ?> _active<?php } ?>" data-bind="visible: showActions<?php if ($block->getIsDescriptionInCollapse()) { ?>, css:{'_active': isCollapseOpen}<?php } ?>">
-                <button class="cs-notification-panel__button cs-notification-panel__button--accept" data-bind="click: onAccept">
-                    <span class="cs-notification-panel__button-span"><?= /* @noEscape */ $block->getButtonAcceptText(); ?></span>
-                    <?= $block->getChildHtml('notification.panel.button.accept.icon'); ?>
-                </button>
-                <?php if ($block->getShowDeclineButton()) { ?>
-                    <button class="cs-notification-panel__button cs-notification-panel__button--decline" data-bind="click: declinePermission">
-                        <span class="cs-notification-panel__button-span"><?= /* @noEscape */ $block->getButtonDeclineText(); ?></span>
-                        <?= $block->getChildHtml('notification.panel.button.decline.icon'); ?>
-                    </button>
                 <?php } ?>
+                <div class="cs-notification-panel__message-wrapper">
+                    <div
+                        class="cs-notification-panel__message"
+                        <?php if ($block->getIsDescriptionInCollapse()) { ?>
+                            data-bind="mageInit: {
+                                'collapsible':{
+                                    'mediaQueryScope':'(max-width: 767px)',
+                                    'animate': true,
+                                }}"
+                        <?php } ?>
+                    >
+                        <div data-role="title">
+                            <span class="cs-notification-panel__message-title" data-bind="text: content().header, click:toggleCollapse" ></span>
+                            <?php if ($block->getIsDescriptionInCollapse()) { ?>
+                                <a href="#" class="cs-notification-panel__next" data-bind="click: toggleCollapse, css: {'_hidden': isCollapseOpen}">
+                                    <?= $block->getChildHtml('notification.panel.next.icon'); ?>
+                                </a>
+                            <?php } ?>
+                        </div>
+
+                        <span class="cs-notification-panel__message-description" data-bind="text: content().description" data-role="content"></span>
+                    </div>
+                </div>
+                <div class="cs-notification-panel__actions<?php if (!$block->getIsDescriptionInCollapse()) { ?> _active<?php } ?>" data-bind="visible: showActions<?php if ($block->getIsDescriptionInCollapse()) { ?>, css:{'_active': isCollapseOpen}<?php } ?>">
+                    <button class="cs-notification-panel__button cs-notification-panel__button--accept" data-bind="click: onAccept">
+                        <span class="cs-notification-panel__button-span"><?= /* @noEscape */ $block->getButtonAcceptText(); ?></span>
+                        <?= $block->getChildHtml('notification.panel.button.accept.icon'); ?>
+                    </button>
+                    <?php if ($block->getShowDeclineButton()) { ?>
+                        <button class="cs-notification-panel__button cs-notification-panel__button--decline" data-bind="click: declinePermission">
+                            <span class="cs-notification-panel__button-span"><?= /* @noEscape */ $block->getButtonDeclineText(); ?></span>
+                            <?= $block->getChildHtml('notification.panel.button.decline.icon'); ?>
+                        </button>
+                    <?php } ?>
+                </div>
+                <a href="#" class="cs-notification-panel__close <?php if (!$block->getIsDescriptionInCollapse()) { ?> _active<?php } ?>" data-bind="click: closePanel<?php if ($block->getIsDescriptionInCollapse()) { ?>, css: {'_active': isCollapseOpen}<?php } ?>">
+                    <?= $block->getChildHtml('notification.panel.close.icon'); ?>
+                </a>
             </div>
-            <a href="#" class="cs-notification-panel__close <?php if (!$block->getIsDescriptionInCollapse()) { ?> _active<?php } ?>" data-bind="click: closePanel<?php if ($block->getIsDescriptionInCollapse()) { ?>, css: {'_active': isCollapseOpen}<?php } ?>">
-                <?= $block->getChildHtml('notification.panel.close.icon'); ?>
-            </a>
+            <?= $block->getChildHtml('notification.panel.hotspot.after'); ?>
         </div>
-        <?= $block->getChildHtml('notification.panel.hotspot.after'); ?>
     </div>
-</div>
+<?php endif; ?>
