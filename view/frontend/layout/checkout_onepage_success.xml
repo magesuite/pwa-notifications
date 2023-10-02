@@ -2,8 +2,9 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="main">
-            <block name="notification.panel.main" template="MageSuite_PwaNotifications::notification-panel.phtml" after="pwa.a2hs.guide" ifconfig="pwa/notifications/success_page_notification_panel">
+            <block name="notification.panel.main" template="MageSuite_PwaNotifications::notification-panel.phtml" after="pwa.a2hs.guide" ifconfig="pwa/permission/order_status_notification">
                 <arguments>
+                    <argument name="view_model" xsi:type="object">MageSuite\Pwa\ViewModel\Data</argument>
                     <argument name="modifier" xsi:type="string">cs-notification-panel--slim</argument>
                     <argument name="render_icons" xsi:type="boolean">true</argument>
                     <argument name="button_accept_text" xsi:type="string" translate="true">Yes, please</argument>
