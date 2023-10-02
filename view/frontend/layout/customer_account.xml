@@ -2,7 +2,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="customer_account_navigation">
-            <block class="Magento\Customer\Block\Account\SortLinkInterface" name="customer-account-navigation-pwa-notifications-link" ifconfig="pwa/notifications/user_area_notification_link" after="customer-account-navigation-newsletter-subscriptions-link">
+            <block class="Magento\Customer\Block\Account\SortLinkInterface" name="customer-account-navigation-pwa-notifications-link" ifconfig="pwa/management/user_area_notification_link" after="customer-account-navigation-newsletter-subscriptions-link">
                 <arguments>
                     <argument name="path" xsi:type="string">pwanotifications/notifications</argument>
                     <argument name="label" xsi:type="string" translate="true">Notifications</argument>

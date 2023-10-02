@@ -6,10 +6,9 @@
                 <order_status_notification>1</order_status_notification>
                 <advertisement>1</advertisement>
             </permission>
-            <notifications>
-                <success_page_notification_panel>1</success_page_notification_panel>
+            <management>
                 <user_area_notification_link>1</user_area_notification_link>
-            </notifications>
+            </management>
         </pwa>
     </default>
 </config>
