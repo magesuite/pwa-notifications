@@ -54,6 +54,13 @@
                     <ticket_id>NPW-41</ticket_id>
                 </entry>
             </tag>
+            <tag version="1.5.4" date="2023-05-02">
+                <entry>
+                    <type>FIX</type>
+                    <overview>Fix message when browser notifications are disabled</overview>
+                    <ticket_id>IPET-1746</ticket_id>
+                </entry>
+            </tag>
         </changelog>
     </module>
 </config>
