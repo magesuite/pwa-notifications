@@ -27,10 +27,15 @@ define([
                     url: url.build('rest/V1/pwa/permission'),
                     data: JSON.stringify({"permission": permissionIdentifier}),
                     contentType: 'application/json'
-                }).then(function () {
+                }).then(function (response) {
                     $('body').trigger('processStop');
 
-                    var message = $.mage.__('Permission settings were saved correctly.');
+                    var message;
+                    if (response === false) {
+                        message = $.mage.__('Push notifications are not enabled. Please enable them in your browser settings.');
+                    } else {
+                        message = $.mage.__('Permission settings were saved correctly.');
+                    }
 
                     var messagesObservable = customerData.get("messages");
                     var subscription = messagesObservable.subscribe(function(messages) {
@@ -39,7 +44,7 @@ define([
                             messages.messages = [];
                         }
                         messages.messages.push({
-                            type: "success",
+                            type: response === false ? "error" : "success",
                             text: message,
                         });
                         messagesObservable(messages);
