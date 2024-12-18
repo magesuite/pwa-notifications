@@ -38,7 +38,7 @@ abstract class AbstractNotificationTest extends \PHPUnit\Framework\TestCase
     protected function getMessages()
     {
         $messageCollection = $this->messageCollectionFactory->create();
-        $messageCollection->addFieldToFilter('topic_name', \MageSuite\Queue\Service\Publisher::DATABASE_CONSUMER_NAME);
+        $messageCollection->addFieldToFilter('topic_name', \MageSuite\Queue\Service\Publisher::CONSUMER_NAME);
         $messageCollection->getSelect()->where(new \Zend_Db_Expr(
             "JSON_CONTAINS(body, '\"MageSuite\\\\\\\\PwaNotifications\\\\\\\\Model\\\\\\\\Notification\\\\\\\\Queue\\\\\\\\Consumer\"', '$.handler')")
         );
