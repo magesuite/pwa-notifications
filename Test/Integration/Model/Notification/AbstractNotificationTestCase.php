@@ -2,7 +2,7 @@
 
 namespace MageSuite\PwaNotifications\Test\Integration\Model\Notification;
 
-abstract class AbstractNotificationTest extends \PHPUnit\Framework\TestCase
+abstract class AbstractNotificationTestCase extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Magento\Framework\ObjectManagerInterface
