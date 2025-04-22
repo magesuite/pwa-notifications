@@ -2,7 +2,7 @@
 
 namespace MageSuite\PwaNotifications\Test\Integration\Model\Notification;
 
-class ConsumerTest extends AbstractNotificationTest
+class ConsumerTest extends AbstractNotificationTestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

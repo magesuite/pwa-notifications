@@ -2,7 +2,7 @@
 
 namespace MageSuite\PwaNotifications\Test\Integration\Model\Notification;
 
-class SendByCustomerTest extends AbstractNotificationTest
+class SendByCustomerTest extends AbstractNotificationTestCase
 {
     /**
      * @var \MageSuite\PwaNotifications\Model\EmailToDeviceRepository
